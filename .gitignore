@@ -1,0 +1,10 @@
+node_modules/
+student/node_modules/
+bower_components/
+student/bower_components/
+
+*.swo
+*.swp
+
+.DS_Store
+npm_debug.log
