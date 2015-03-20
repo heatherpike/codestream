@@ -6,9 +6,19 @@
     <script src='/angular/angular.js'></script>
     <script src='/javascripts/app.js'></script>
     <script src='/javascripts/controllers/main.js'></script>
+    <script src='/javascripts/factories/TimelineFactory.js'></script>
   </head>
   <body ng-app='WebUI' ng-controller='MainCtrl'>
     <h1>{{ title }}</h1>
     <p>Welcome to {{ title }}</p>
+    <ol>
+      <li ng-repeat="commit in commits">
+        {{commit.author}}
+        <span class="details">
+          {{commit.message}}
+        </span>
+      </li>
+      
+    </ol>
   </body>
 </html>
