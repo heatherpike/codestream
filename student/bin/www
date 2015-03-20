@@ -2,8 +2,29 @@
 var debug = require('debug')('student');
 var app = require('../app');
 
+
 app.set('port', process.env.PORT || 3000);
 
 var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
 });
+
+
+
+// var juniors = require('socket.io').listen(server);
+
+
+// juniors.sockets.on('connection', function (socket){
+// 	socket.on('send message', function(data){
+// 		juniors.sockets.emit('new message', data);
+// 	})
+// });
+
+
+// var seniors = require('socket.io').listen(server);
+
+// 	seniors.sockets.on('connection', function (socket){
+// 	socket.on('send message', function(data){
+// 		seniors.sockets.emit('new message', data);
+// 	})
+// });

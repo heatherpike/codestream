@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
+
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -25,6 +28,9 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/', routes);
 app.use('/users', users);
+// app.get('/chat', function(req, res){
+//     res.render('/chat.ejs');
+// })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

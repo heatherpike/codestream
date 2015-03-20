@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src='/angular/angular.js'></script>
-    <script src='/javascripts/app.js'></script>
-    <script src='/javascripts/controllers/main.js'></script>
-  </head>
-  <body ng-app='WebUI' ng-controller='MainCtrl'>
-    <h1>{{ title }}</h1>
-    <p>Welcome to {{ title }}</p>
 
-    <span id="chat" class="chatbox">
 
-<div class="chatform" ng-controller="JuniorChatCtrl">
+ <span id="chat" class="chatbox">
+
+<div class="chatform">
   <form id="send-message">
     <input size="35" id="message"></input>
     <input type="submit"></input>
@@ -50,7 +39,3 @@
   </div>
 
     </span>
-
-
-  </body>
-</html>
