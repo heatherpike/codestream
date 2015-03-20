@@ -2,17 +2,31 @@
 <html>
   <head>
     <title>l2c</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+    <script src="/ace-builds/src-min-noconflict/ace.js"></script>
     <script src='/angular/angular.js'></script>
+    <script src="/angular-ui-ace/ui-ace.js"></script>
     <script src='/javascripts/app.js'></script>
     <script src='/javascripts/controllers/main.js'></script>
     <script src='/javascripts/factories/TimelineFactory.js'></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body ng-app='WebUI' ng-controller='MainCtrl'>
     <h1>{{ title }}</h1>
     <p>Welcome to {{ title }}</p>
 
-    
+    <section>
+      <div class="ace_editor" style="height: 400px; width: 800px;" ui-ace="{
+        useWrapMode : true,
+        showGutter: true,
+        theme:'monokai',
+        mode: 'javascript',
+        firstLineNumber: 1,
+        onLoad: aceLoaded,
+        onChange: aceChanged
+        }">
+      </div>
+    </section>
 
     <ol>
       <li ng-repeat="commit in commits">
@@ -24,47 +38,43 @@
     </ol>
 
 
-    <span id="chat" class="chatbox">
+  <span id="chat" class="chatbox">
+    <div class="chatform" ng-controller="JuniorChatCtrl">
+      <form id="send-message">
+        <input size="35" id="message"></input>
+        <input type="submit"></input>
+      </form>
+      </div>
 
-<div class="chatform" ng-controller="JuniorChatCtrl">
-  <form id="send-message">
-    <input size="35" id="message"></input>
-    <input type="submit"></input>
-  </form>
-  </div>
+      <div class="chatform">
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+          jQuery(function($){
+            var socket = io.connect();
+            var $messageForm = $('#send-message');
+            var $messageBox = $('#message');
+            var $chat = $('#chat');
 
-  <div class="chatform">
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    jQuery(function($){
-      var socket = io.connect();
-      var $messageForm = $('#send-message');
-      var $messageBox = $('#message');
-      var $chat = $('#chat');
-
-      socket.emit('join', 'juniors');
-      
-      $messageForm.submit(function(e){
-        e.preventDefault();
-        var message = {};
-        message.room = 'juniors';
-        message.message = $messageBox.val();
-        // socket.emit('send message', $messageBox.val());
-        socket.emit('send message', message);
-        $messageBox.val('');
-      });
-      
-      socket.on('new message', function(data){
-        $chat.append(data + "<br/>");
-      });
-    });
-  </script>
-  </div>
-
-    </span>
-
-
-
+            socket.emit('join', 'juniors');
+            
+            $messageForm.submit(function(e){
+              e.preventDefault();
+              var message = {};
+              message.room = 'juniors';
+              message.message = $messageBox.val();
+              // socket.emit('send message', $messageBox.val());
+              socket.emit('send message', message);
+              $messageBox.val('');
+            });
+            
+            socket.on('new message', function(data){
+              $chat.append(data + "<br/>");
+            });
+          });
+        </script>
+      </div>
+    </span> 
+    
   </body>
 </html>

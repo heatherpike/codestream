@@ -46,10 +46,10 @@ ol::after {
 
 li {
   position: relative;
-  top: -77px;
+  top: -54px;
   display: inline-block;
   float: left;
-  width: 150px;
+  width: 74px;
   transform: rotate(-45deg);
   font: bold 14px arial;
 }
@@ -110,12 +110,13 @@ li:hover::before {
   border-color: #28e;
 }
 li:hover .details {
-  display: inline;
+  display: block;
+  width: 100px;
   color: #444;
 
 #chat{
-			height:500px;
-		}
+	height:500px;
+}
 
 .chatbox{
 	height: 300px;
@@ -134,4 +135,9 @@ li:hover .details {
 border-width: 1px;
 
 
+}
+
+.ace_editor { 
+  height: 200px;
+  display: block;
 }

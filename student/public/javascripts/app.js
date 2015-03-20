@@ -1,2 +1,1 @@
-var app = angular.module('WebUI', []);
-
+var app = angular.module('WebUI', ['ui.ace']);
