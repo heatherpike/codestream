@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 10px 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: #681;
   background: #eee;
@@ -16,7 +16,7 @@ a {
 ol {
   position: relative;
   display: block;
-  margin: 100px;
+  margin: 100px 20px;
   height: 4px;
   background: #9b2;
 }
@@ -136,6 +136,13 @@ border-width: 1px;
 
 
 }
+
+.directory {
+  background: gray;
+  height: 400px;
+  width: 200px;
+}
+
 
 .ace_editor { 
   height: 200px;
