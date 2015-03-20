@@ -112,4 +112,26 @@ li:hover::before {
 li:hover .details {
   display: inline;
   color: #444;
+
+#chat{
+			height:500px;
+		}
+
+.chatbox{
+	height: 300px;
+	width: 25%;
+	border-color: #605066;
+	border: solid;
+	border-width: 1px; 
+	float: right;
+	text-align: center;
+	vertical-align: top;
+}
+
+.chatform{
+	border-color: #605066;
+	border: solid;
+border-width: 1px;
+
+
 }

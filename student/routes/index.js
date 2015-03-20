@@ -4,9 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', {
-    title: 'Express'
-  });
+  res.render('index');
 });
 
 router.get('/commits', function(req, res) {
@@ -14,5 +12,9 @@ router.get('/commits', function(req, res) {
     res.send(commits);
   });
 });
+
+router.get('/chat', function(req, res) {
+  res.render('chat.ejs');
+})
 
 module.exports = router;
