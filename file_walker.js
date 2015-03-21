@@ -1,8 +1,8 @@
 var fs = require("fs");
-// var dir = require("node-dir");
-    path = require('path')
+    path = require('path');
 
 function dirTree(filename) {
+	//depending where we ultimately read files from we may need to refactor this to async
     var stats = fs.lstatSync(filename),
         info = {
             path: filename,
@@ -15,20 +15,29 @@ function dirTree(filename) {
             return dirTree(filename + '/' + child);
         });
     } else {
-        // Assuming it's a file. In real life it could be a symlink or
-        // something else!
+        // assuming anything else is a file but what edge cases should we consider?
         info.type = "file";
     }
 
     return info;
 }
 
+//not sure what module.parent is doing or if we truly need it. let's ask later
 if (module.parent == undefined) {
-    // node dirTree.js ~/foo/bar
+    //use util.inspect with options false, null to print out the full nested objects, 
+    //otherwise it limits depth
     var util = require('util');
-    console.log(util.inspect(dirTree(process.cwd()), false, null));
+    //for now calling function on the current working directory, so sync should work fine
+    var fileTree = dirTree(process.cwd());
+    var wikiTree = dirTree('./wikistack');
+    // console.log(typeof wikiTree);
+    // console.log(wikiTree);
+    // console.log(util.inspect(wikiTree, false, null));
+    // console.log(util.inspect(wikiTree, false, null));
 }
 
+
+// var dir = require("node-dir");
 // var walk = function(dir, done) {
 //   var results = [];
 //   fs.readdir(dir, function(err, list) {
