@@ -1,5 +1,5 @@
 app.controller('MainCtrl', function($scope, TimelineFactory) {
-  $scope.title = '<live2code/>';
+  $scope.title = '<codestream/>';
   TimelineFactory.getTimeline(function(commits) {
     $scope.commits = commits.reverse();
   });
