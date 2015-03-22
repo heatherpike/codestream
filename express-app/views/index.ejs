@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src='/angular/angular.js'></script>
     <script src='/javascripts/app.js'></script>
@@ -10,6 +9,13 @@
   <body ng-app='WebUI' ng-controller='MainCtrl'>
     <h1>{{ title }}</h1>
     <p>Welcome to {{ title }}</p>
+
+    <form name="githubLoginForm" ng-submit="submitGithubLogin(username, password)">
+      <label>Github Username</label><input type="email" ng-model="username" />
+      <label>Github Password</label><input type="password" ng-model="password" />
+      <label>Repository</label><input type="text" ng-model="repository" />
+      <button type="submit">Submit</button>
+    </form>
 
     <span id="chat" class="chatbox">
 
