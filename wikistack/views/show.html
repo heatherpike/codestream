@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}wikistack - {{ title }}{% endblock %}
+
+{% block content %}
+	<h3>{{ title }}</h3>
+	<hr>
+	<div class="page-body">{{ body | marked }}</div>
+	<a href="{{ url_name }}/edit" class="btn btn-primary">edit this page</a>
+	<a href="{{ url_name }}/delete" class="btn btn-danger">delete this page</a>
+{% endblock %}
