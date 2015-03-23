@@ -8,9 +8,11 @@
     <script src='/javascripts/app.js'></script>
     <script src='/javascripts/controllers/main.js'></script>
     <script src='/javascripts/factories/TimelineFactory.js'></script>
+    <script src='/javascripts/factories/LoginFactory.js'></script>
     <link rel="stylesheet" href="/angular-ui-tree/dist/angular-ui-tree.min.css"/>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="/angular-ui-tree/dist/angular-ui-tree.js"></script>
+    <script src="/jquery/dist/jquery.min.js"></script>
   </head>
   <body ng-app='WebUI' ng-controller='MainCtrl'>
     <h1>{{ title }}</h1>
@@ -63,7 +65,7 @@
     </ol>
 
       <span id="chat" class="chatbox">
-    <div class="chatform" ng-controller="JuniorChatCtrl">
+    <div class="chatform">
       <form id="send-message">
         <input size="35" id="message"></input>
         <input type="submit"></input>

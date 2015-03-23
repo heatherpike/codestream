@@ -19,7 +19,7 @@ router.get('/chat', function (req, res){
 });
 
 router.post("/login", function (req, res, next) {
-
+	console.log(req.body);
 	github.authenticate({
 		type: 'basic',
 		username: req.body.username, 
@@ -38,8 +38,7 @@ router.post("/login", function (req, res, next) {
 		events: ['push'],
 		active: true
 	}, function (err, data) {
-		if (err) next(err);
-		//store repo name and owner name in DB
+		if (err) console.log(err);
 		res.end();
 	});
 });
