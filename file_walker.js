@@ -1,8 +1,8 @@
 var fs = require("fs");
-    path = require('path');
+var path = require('path');
 
 function dirTree(filename) {
-	//depending where we ultimately read files from we may need to refactor this to async
+    //depending where we ultimately read files from we may need to refactor this to async
     var stats = fs.lstatSync(filename),
         info = {
             path: filename,
@@ -107,4 +107,3 @@ if (module.parent == undefined) {
 // })
 
 //to get files from current directory use process.cwd()
-
