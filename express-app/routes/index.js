@@ -15,7 +15,8 @@ router.get('/commits', function(req, res) {
 });
 
 router.get('/filetree', function(req, res) {
-  fileWalker(process.cwd())
+  console.log('filewalker', fileWalker);
+  res.send(fileWalker(process.cwd()));
 })
 
 router.get('/chat', function(req, res) {
