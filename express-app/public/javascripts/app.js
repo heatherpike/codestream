@@ -1,1 +1,1 @@
-var app = angular.module('WebUI', ['ui.ace']);
+var app = angular.module('WebUI', ['ui.ace', 'ui.tree']);
