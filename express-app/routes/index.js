@@ -17,7 +17,7 @@ router.get('/chat', function (req, res){
 });
 
 router.post("/login", function (req, res, next) {
-	console.log(req.body);
+
 	github.authenticate({
 		type: 'basic',
 		username: req.body.username, 
@@ -36,12 +36,28 @@ router.post("/login", function (req, res, next) {
 		events: ['push'],
 		active: true
 	}, function (err, data) {
-		console.log(err);
-		console.log(data);
-
+		if (err) next(err);
+		//store repo name and owner name in DB
 		res.end();
 	});
 });
+
+	// github.gitdata.getReference({
+	// 	user: req.body.username,
+	// 	repo: req.body.repository,
+	// 	ref: "heads/master"
+	// }, function (err, data) {
+	// 	github.gitdata.getTree({
+	// 		user: req.body.username,
+	// 		repo: req.body.repository,
+	// 		sha: data.object.sha,
+	// 		recursive: true
+	// 	}, function (err, data) {
+	// 		console.log(data);
+	// 		res.end();	
+	// 	})
+
+	// });
 		// gith({
 		// 	repo: req.body.repository
 		// }).on('all', function (payload) {
