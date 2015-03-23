@@ -10,8 +10,8 @@
     <h1>{{ title }}</h1>
     <p>Welcome to {{ title }}</p>
 
-    <form name="githubLoginForm" ng-submit="submitGithubLogin(username, password)">
-      <label>Github Username</label><input type="email" ng-model="username" />
+    <form name="githubLoginForm" ng-submit="submitGithubLogin(username, password, repository)">
+      <label>Github Username</label><input type="text" ng-model="username" />
       <label>Github Password</label><input type="password" ng-model="password" />
       <label>Repository</label><input type="text" ng-model="repository" />
       <button type="submit">Submit</button>
