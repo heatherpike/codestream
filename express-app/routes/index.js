@@ -3,6 +3,8 @@ var timeline = require('../timeline');
 var fileWalker = require('../file-walker');
 var router = express.Router();
 var GitHubApi = require('github');
+var gift = require('gift');
+var models = require('../models/');
 //var gith = require('gith').create(9001);
 
 var github = new GitHubApi({
@@ -39,6 +41,22 @@ router.post("/login", function (req, res, next) {
 		active: true
 	}, function (err, data) {
 		if (err) console.log(err);
+    // chop of /hooks/[hook_id] from url to get repo api url
+    var githubUrl = data.url.split(/\/hooks\/[0-9]+$/)[0];
+    var newRepo = new model.Repo({
+                               name: req.body.repository,
+                               githubUrl: githubUrl,
+                               userId: 'please integrate me with passport!'});
+    gift.clone('git@github.com:'+req.body.username+'/'+req.body.repository+'.git', 
+               '../repos/'+repo._id, 
+               function(err, _repo) {
+                 if(err) console.log(err);
+                 else {
+                   newRepo.save(function(err) {
+                     if(err) console.log(err);
+                   });
+                 }
+               });
 		res.end();
 	});
 });
