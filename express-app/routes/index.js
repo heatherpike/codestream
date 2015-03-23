@@ -1,4 +1,6 @@
 var express = require('express');
+var timeline = require('../timeline');
+var fileWalker = require('../file-walker');
 var router = express.Router();
 var GitHubApi = require('github');
 //var gith = require('gith').create(9001);
@@ -9,7 +11,7 @@ var github = new GitHubApi({
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+  res.render('index');
 });
 
 router.get('/chat', function (req, res){
@@ -42,27 +44,18 @@ router.post("/login", function (req, res, next) {
 	});
 });
 
-	// github.gitdata.getReference({
-	// 	user: req.body.username,
-	// 	repo: req.body.repository,
-	// 	ref: "heads/master"
-	// }, function (err, data) {
-	// 	github.gitdata.getTree({
-	// 		user: req.body.username,
-	// 		repo: req.body.repository,
-	// 		sha: data.object.sha,
-	// 		recursive: true
-	// 	}, function (err, data) {
-	// 		console.log(data);
-	// 		res.end();	
-	// 	})
+router.get('/commits', function(req, res) {
+  timeline(function(commits) {
+    res.send(commits);
+  });
+});
 
-	// });
-		// gith({
-		// 	repo: req.body.repository
-		// }).on('all', function (payload) {
-		// 	console.log(payload);
-		// });
+router.get('/filetree', function(req, res) {
+  fileWalker(process.cwd())
+})
 
+router.get('/chat', function(req, res) {
+  res.render('chat.ejs');
+})
 
 module.exports = router;

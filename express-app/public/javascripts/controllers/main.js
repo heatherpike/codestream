@@ -1,9 +1,14 @@
-app.controller('MainCtrl', function ($scope, LoginFactory) {
-  $scope.title = 'ourapp';
+app.controller('MainCtrl', function($scope, TimelineFactory) {
+  $scope.title = '<codestream/>';
+  
+  TimelineFactory.getTimeline(function(commits) {
+    $scope.commits = commits.reverse();
+  });
 
   $scope.submitGithubLogin = function (username, password, repository) {
   	LoginFactory.githubLogin(username, password, repository);
   }
+
 });
 
 app.factory('LoginFactory', function ($http) {
@@ -15,4 +20,3 @@ app.factory('LoginFactory', function ($http) {
 			})
 		}
 	}
-});

@@ -1,4 +1,6 @@
 var express = require('express');
+var swig = require('swig');
+require('./filters')(swig);
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -7,30 +9,26 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var auth = require('./routes/auth');
+var add_routes = require('./routes/add');
 
 var app = express();
+app.engine('html', swig.renderFile);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/', routes);
 app.use('/users', users);
-// app.get('/chat', function(req, res){
-//     res.render('/chat.ejs');
-// })
+app.use('/add', add_routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -44,6 +42,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
+    swig.setDefaults({cache: false});
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
