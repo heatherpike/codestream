@@ -1,8 +1,8 @@
-var fs = require("fs");
+var fs = require("fs"),
     path = require('path');
 
-function dirTree(filename) {
-	//depending where we ultimately read files from we may need to refactor this to async
+module.exports = (function dirTree(filename) {
+    //depending where we ultimately read files from we may need to refactor this to async
     var stats = fs.lstatSync(filename),
         info = {
             path: filename,
@@ -20,21 +20,22 @@ function dirTree(filename) {
     }
 
     return info;
-}
+})
 
 //not sure what module.parent is doing or if we truly need it. let's ask later
-if (module.parent == undefined) {
-    //use util.inspect with options false, null to print out the full nested objects, 
-    //otherwise it limits depth
-    var util = require('util');
-    //for now calling function on the current working directory, so sync should work fine
-    var fileTree = dirTree(process.cwd());
-    var wikiTree = dirTree('./wikistack');
-    // console.log(typeof wikiTree);
-    // console.log(wikiTree);
-    // console.log(util.inspect(wikiTree, false, null));
-    // console.log(util.inspect(wikiTree, false, null));
-}
+// if (module.parent == undefined) {
+//     //use util.inspect with options false, null to print out the full nested objects, 
+//     //otherwise it limits depth
+//     // var util = require('util');
+//     //for now calling function on the current working directory, so sync should work fine
+//     // var fileTree = dirTree(process.cwd());
+//     // var wikiTree = dirTree('./wikistack');
+//     return dirTree(process.cwd());
+//     // console.log(typeof wikiTree);
+//     // console.log(wikiTree);
+//     // console.log(util.inspect(wikiTree, false, null));
+//     // console.log(util.inspect(wikiTree, false, null));
+// }
 
 
 // var dir = require("node-dir");
@@ -107,4 +108,3 @@ if (module.parent == undefined) {
 // })
 
 //to get files from current directory use process.cwd()
-
