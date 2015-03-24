@@ -7,7 +7,5 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileSystemFactory) 
     var arr = [];
     arr.push(files);
     $scope.files = arr;
-
-    console.log($scope.files);
   });
 });
