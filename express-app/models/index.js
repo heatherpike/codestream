@@ -9,7 +9,8 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
   name: String,
   email: {type: String, required: true},
-  password: String
+  password: String,
+  githubId: String
 });
 
 var repoSchema = new Schema({
