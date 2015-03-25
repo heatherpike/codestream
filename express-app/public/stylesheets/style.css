@@ -10,6 +10,27 @@ a {
   color: #00B7FF;
 }
 
+.chatform{
+  display: inline-block;
+  float: right;
+	border-color: #605066;
+	border: solid;
+  border-width: 1px;
+}
+
+.directory {
+  display:inline-block;
+  height:400px;
+  width:200px;
+  overflow:scroll;
+  background-color:#666;
+}
+
+
+.ace_editor { 
+  height: 200px;
+  display: block;
+}
 
 /* ---- Timeline ---- */
 
@@ -115,34 +136,17 @@ a {
   color: #444;
 
 #chat{
-	height:500px;
+  height:500px;
 }
 
 .chatbox{
-	height: 300px;
-	width: 25%;
-	border-color: #605066;
-	border: solid;
-	border-width: 1px; 
-	float: right;
-	text-align: center;
-	vertical-align: top;
+  height: 300px;
+  width: 25%;
+  border-color: #605066;
+  border: solid;
+  border-width: 1px; 
+  float: right;
+  text-align: center;
+  vertical-align: top;
 }
 
-.chatform{
-	border-color: #605066;
-	border: solid;
-  border-width: 1px;
-}
-
-/*.directory {
-  background: #000;
-  height: 400px;
-  width: 200px;
-}*/
-
-
-.ace_editor { 
-  height: 200px;
-  display: block;
-}

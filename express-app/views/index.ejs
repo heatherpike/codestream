@@ -10,14 +10,15 @@
     <script src='/javascripts/factories/TimelineFactory.js'></script>
     <script src='/javascripts/factories/FileSystemFactory.js'></script>
     <script src="/angular-ui-tree/dist/angular-ui-tree.js"></script>
+    <script src="/angular-recursion/angular-recursion.min.js"></script>
     <link rel="stylesheet" href="/angular-ui-tree/dist/angular-ui-tree.min.css"/>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
   </head>
   <body ng-app='WebUI' ng-controller='MainCtrl'>
     <h1>{{ title }}</h1>
-    <pre>{{ files }}</pre>
+    <!-- <pre>{{ files }}</pre> -->
     <section>
-      <div class="directory" style="display:inline-block;height:400px;width:200px;background-color:#;">
+      <div class="directory">
         <script type="text/ng-template" id="nodes_renderer.html">
           <div ui-tree-handle>
             {{ file.name }}
@@ -88,9 +89,9 @@
     <div class="timeline">
       <ol>
         <li ng-repeat="commit in commits">
-          {{commit.date | date:'MM/dd/yyyy @ h:mma'}}
+          {{commit.author}}
           <span class="details">
-            {{commit.message}}
+            {{commit.date | date:'MM/dd/yyyy @ h:mma'}}
           </span>
         </li>
       </ol>
