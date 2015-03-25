@@ -113,9 +113,10 @@ li:hover .details {
   display: block;
   width: 100px;
   color: #444;
+}
 
 #chat{
-	height:500px;
+	height:400px;
 }
 
 .chatbox{
