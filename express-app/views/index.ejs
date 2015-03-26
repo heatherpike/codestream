@@ -3,8 +3,6 @@
   <head>
     <title>l2c</title>
     <script src='/angular/angular.js'></script>
-    <script src="/ace-builds/src-min-noconflict/ace.js"></script>
-    <script src="/angular-ui-ace/ui-ace.js"></script>
     <script src='/javascripts/app.js'></script>
     <script src='/javascripts/controllers/MainController.js'></script>
     <script src='/javascripts/factories/TimelineFactory.js'></script>
@@ -19,7 +17,7 @@
     <h1>{{ title }}</h1>
     <!-- <pre>{{ files }}</pre> -->
 
-    <section>
+    <section class="main">
       <div class="directory">
         <script type="text/ng-template" id="nodes_renderer.html">
           <div ui-tree-handle>
@@ -38,16 +36,7 @@
       </div>
 
 
-      <div class="ace_editor" style="display:inline-block;height:400px;width:600px;" ui-ace="{
-        useWrapMode : true,
-        showGutter: true,
-        theme:'monokai',
-        mode: 'javascript',
-        firstLineNumber: 1,
-        onLoad: aceLoaded,
-        onChange: aceChanged
-        }">
-      </div>
+      <pre class="blackboard"></pre>
 
       <span id="chat" class="chatbox">
 
@@ -91,15 +80,17 @@
 
 
 <!-- Timeline -->
+    <div class="timeline">
+      <ol>
+        <li ng-repeat="commit in commits">
+          {{commit.author}}
+          <span class="details">
+            {{commit.date | date:'MM/dd/yyyy @ h:mma'}}
+          </span>
+        </li>
+      </ol>
+    </div>
 
-    <ol>
-      <li ng-repeat="commit in commits">
-        {{commit.date | date:'MM/dd/yyyy @ h:mma'}}
-        <span class="details">
-          {{commit.message}}
-        </span>
-      </li>
-    </ol>
 
 <!-- end Timeline -->
 

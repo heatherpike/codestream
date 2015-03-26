@@ -1,5 +1,5 @@
 body {
-  padding: 5px 50px;
+  
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: #681;
   background: #eee;
@@ -16,7 +16,7 @@ a {
 
 .chatbox{
   height: 300px;
-  width: 25%;
+  width: 20%;
   border-color: #605066;
   border: solid;
   border-width: 1px; 
@@ -41,9 +41,11 @@ a {
 }
 
 
-.ace_editor { 
-  height: 200px;
-  display: block;
+.blackboard {
+  display: inline-block;
+  background-color: #BADA55;
+  height: 400px;
+  width: 800px;
 }
 
 /* ---- Timeline ---- */

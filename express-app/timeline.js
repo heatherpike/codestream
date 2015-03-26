@@ -25,13 +25,14 @@ module.exports = (function(cb) {
 
           // [1,2,3].map(function(n) { return n * 2}) => [2,4,6]
           var commitsArr = commits.map(function(commit) {
-            console.log(commit)
+
             var commitObject = {
               id: commit.sha(),
               author: commit.author().name(),
               date: commit.date(),
               message: commit.message()
             };
+            console.log(commitObject);
             return commitObject;
           })
           resolve(commitsArr);
