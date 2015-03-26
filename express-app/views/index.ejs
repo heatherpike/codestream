@@ -3,104 +3,97 @@
   <head>
     <title>l2c</title>
     <script src='/angular/angular.js'></script>
-    <script src="/ace-builds/src-min-noconflict/ace.js"></script>
-    <script src="/angular-ui-ace/ui-ace.js"></script>
     <script src='/javascripts/app.js'></script>
     <script src='/javascripts/controllers/MainController.js'></script>
     <script src='/javascripts/factories/TimelineFactory.js'></script>
-    <script src='/javascripts/factories/LoginFactory.js'></script>
-    <link rel="stylesheet" href="/angular-ui-tree/dist/angular-ui-tree.min.css"/>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/javascripts/factories/FileSystemFactory.js'></script>
     <script src="/angular-ui-tree/dist/angular-ui-tree.js"></script>
+    <script src="/angular-recursion/angular-recursion.min.js"></script>
     <script src="/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="/angular-ui-tree/dist/angular-ui-tree.min.css"/>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
   </head>
   <body ng-app='WebUI' ng-controller='MainCtrl'>
     <h1>{{ title }}</h1>
+    <!-- <pre>{{ files }}</pre> -->
 
-    <form name="githubLoginForm" ng-submit="submitGithubLogin(username, password, repository)">
-      <label>Github Username</label><input type="text" ng-model="username" />
-      <label>Github Password</label><input type="password" ng-model="password" />
-      <label>Repository</label><input type="text" ng-model="repository" />
-      <button type="submit">Submit</button>
-    </form>
-
-    <section>
-      <div class="directory" style="display:inline-block;height:400px;width:200px;background-color:gray;">
-        <div ui-tree>
-          <ol ui-tree-nodes="" ng-model="list">
-            <li ng-repeat="item in list" ui-tree-node>
-              <div ui-tree-handle>
-                {{item.title}}
-              </div>
-              <ol ui-tree-nodes="" ng-model="item.items">
-                <li ng-repeat="subItem in item.items" ui-tree-node>
-                  <div ui-tree-handle>
-                    {{subItem.title}}
-                  </div>
-                </li>
-              </ol>
+    <section class="main">
+      <div class="directory">
+        <script type="text/ng-template" id="nodes_renderer.html">
+          <div ui-tree-handle>
+            {{ file.name }}
+          </div>
+          <ol ui-tree-nodes="" ng-model="file.children">
+            <li ng-repeat="file in file.children" ui-tree-node ng-include="'nodes_renderer.html'">
             </li>
+          </ol>
+        </script>
+        <div ui-tree>
+          <ol ui-tree-nodes="" ng-model="files" id="tree-root">
+            <li ng-repeat="file in files" ui-tree-node ng-include="'nodes_renderer.html'"></li>
           </ol>
         </div>
       </div>
-      <div class="ace_editor" style="display:inline-block;height:400px;width:600px;" ui-ace="{
-        useWrapMode : true,
-        showGutter: true,
-        theme:'monokai',
-        mode: 'javascript',
-        firstLineNumber: 1,
-        onLoad: aceLoaded,
-        onChange: aceChanged
-        }">
-      </div>
-    </section>
 
-    <ol>
-      <li ng-repeat="commit in commits">
-        {{commit.date | date:'MM/dd/yyyy @ h:mma'}}
-        <span class="details">
-          {{commit.message}}
-        </span>
-      </li>
-    </ol>
+
+      <pre class="blackboard"></pre>
 
       <span id="chat" class="chatbox">
-    <div class="chatform">
-      <form id="send-message">
-        <input size="35" id="message"></input>
-        <input type="submit"></input>
-      </form>
-      </div>
 
-      <div class="chatform">
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script>
-          jQuery(function($){
-            var socket = io.connect();
-            var $messageForm = $('#send-message');
-            var $messageBox = $('#message');
-            var $chat = $('#chat');
+        <div class="chatform">
+          <form id="send-message">
+            <input size="35" id="message"></input>
+            <input type="submit"></input>
+          </form>
+        </div>
 
-            socket.emit('join', 'juniors');
-            
-            $messageForm.submit(function(e){
-              e.preventDefault();
-              var message = {};
-              message.room = 'juniors';
-              message.message = $messageBox.val();
-              // socket.emit('send message', $messageBox.val());
-              socket.emit('send message', message);
-              $messageBox.val('');
+        <div class="chatform">
+          <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+          <script src="/socket.io/socket.io.js"></script>
+          <script>
+            jQuery(function($){
+              var socket = io.connect();
+              var $messageForm = $('#send-message');
+              var $messageBox = $('#message');
+              var $chat = $('#chat');
+
+              socket.emit('join', 'juniors');
+              
+              $messageForm.submit(function(e){
+                e.preventDefault();
+                var message = {};
+                message.room = 'juniors';
+                message.message = $messageBox.val();
+                // socket.emit('send message', $messageBox.val());
+                socket.emit('send message', message);
+                $messageBox.val('');
+              });
+              
+              socket.on('new message', function(data){
+                $chat.append(data + "<br/>");
+              });
             });
-            
-            socket.on('new message', function(data){
-              $chat.append(data + "<br/>");
-            });
-          });
-        </script>
-      </div>
-    </span> 
+          </script>
+        </div>
+      </span> 
+    </section>
+
+
+<!-- Timeline -->
+    <div class="timeline">
+      <ol>
+        <li ng-repeat="commit in commits">
+          {{commit.author}}
+          <span class="details">
+            {{commit.date | date:'MM/dd/yyyy @ h:mma'}}
+          </span>
+        </li>
+      </ol>
+    </div>
+
+
+<!-- end Timeline -->
+
 
   </body>
 </html>

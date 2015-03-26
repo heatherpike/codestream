@@ -1,13 +1,15 @@
-app.controller('MainCtrl', function($scope, TimelineFactory, LoginFactory) {
+app.controller('MainCtrl', function($scope, TimelineFactory, FileSystemFactory) {
   $scope.title = '<codestream/>';
-  
+
   TimelineFactory.getTimeline(function(commits) {
     $scope.commits = commits.reverse();
   });
 
-  $scope.submitGithubLogin = function (username, password, repository) {
-  	LoginFactory.githubLogin(username, password, repository);
-  }
+  FileSystemFactory.fileDirectory().then(function(files) {
+    var arr = [];
+    arr.push(files);
+    $scope.files = arr;
+
+  });
 
 });
-
