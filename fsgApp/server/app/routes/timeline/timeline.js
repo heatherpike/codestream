@@ -16,12 +16,7 @@ var slicedPath = pathSep.slice(0,pathSep.length - 1);
 var oneUpDirectory = slicedPath.join(path.sep);
 
 module.exports = (function(cb) {
-  console.log("process cwd", process.cwd());
-
   var open = require('nodegit').Repository.open;
-  // var commits = ["hello", "i", "am", "an", "array"];
-  // return commits;
-  console.log("it ran");
   //Open the repository directory.
   open(oneUpDirectory)
     // Open the master branch.
@@ -50,7 +45,6 @@ module.exports = (function(cb) {
               date: commit.date(),
               message: commit.message()
             };
-            console.log(commitObject);
             return commitObject;
           })
           resolve(commitsArr);
