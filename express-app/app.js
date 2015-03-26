@@ -26,6 +26,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
+
+// call routes with app to return 'router' and app.use session middleware
 app.use('/', routes);
 app.use('/users', users);
 // app.get('/chat', function(req, res){

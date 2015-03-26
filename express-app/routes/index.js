@@ -8,19 +8,38 @@ var models = require('../models/');
 var config = require('../config.js');
 //var gith = require('gith').create(9001);
 
+// express session
+var session = require('express-session');
+
+
 // passport stuff
 var passport = require('passport');
-var GitHubStrategy = require('passport-github').Strategy;
-var GITHUB_CLIENT_ID = config.github_client_id;
-var GITHUB_CLIENT_SECRET = config.github_client_secret;
-passport.use(new GitHubStrategy({
-    clientID: GITHUB_CLIENT_ID,
-    clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    models.User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return done(err, user);
+var LocalStrategy = require('passport-local').Strategy;
+
+// wrap in function in order to use session middleware
+
+//  app.use(session({
+//    secret: 'omg its alive',
+//    resave: true,
+//    saveUninitialized: false,
+//    cookie: { secure: true }
+//  }));
+router.use(session({secret:'The answer to Life, The Universe and Everything: 42'}));
+router.use(passport.initialize());
+router.use(passport.session());
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    models.User.findOne({ username: username }, function (err, user) {
+      console.log('err', err, 'user', user);
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.correctPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
     });
   }
 ));
@@ -33,19 +52,9 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-router.get('/auth/github',
-  passport.authenticate('github'));
-
-router.get('/auth/github/callback', 
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
-
 // Web Interface routes
 var github = new GitHubApi({
-	version: "3.0.0"
+  version: "3.0.0"
 });
 
 /* GET home page. */
@@ -54,7 +63,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/chat', function (req, res){
-	res.render('chat.ejs');
+  res.render('chat.ejs');
 });
 
 //router.post("/login", function (req, res, next) {
@@ -119,36 +128,67 @@ router.post('/repos/:repoId/push', function(req, res) {
 
 // API for CLIve
 
-// POST /login Oauth login to github
+// POST /login login to server, authenticate user 
 router.post('/login', function(req, res) {
-  passport.authenticate('github')(req, res);
-
-});
-
-// GET /loginError What do do when Oauth fails
-router.get('/loginError', function(req, res) {
-
-});
-
-// POST /auth/github/callback Oauth successful login for instructor
-router.post('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/loginError' }), 
-  function(req, res) {
-    models.Repo.find({userId: req.user._id}, function(err, repos) {
-     res.status(200).json({ repos: repos });
-    });
+  passport.authenticate('local', function(err, user, info) {
+    if(err) res.status(500).end();
+    else if (!user) {
+      console.log('!user', info);
+      res.status(401).end();
+    } 
+    else {
+      req.login(user, function(err) {
+        if(err) {
+          console.log('this err', err);
+          res.status(500).end(); 
+        }
+        else {
+          models.Repo.find({ userid: user._id }, function(err, repos) {
+            if(err) res.status(500).end(); 
+            else {
+              console.log('this user has these repos:', repos);
+              res.status(200).json(repos);
+            }
+          });
+        }
+      });
+    }
+  })(req, res);
 });
 
 // POST /repos/create Creates a new repo in database, uses POST request data to
 //      clone the repo locally and set the app to create a classroom session
 //      for it, etc.
 router.post('/repos/create', function(req, res) {
-
+  var newRepo = new models.Repo({name: req.body.repository, 
+                                 githubUrl: req.body.githubUrl, 
+                                 userId: req.user._id});
+  git.clone('git@github.com:'+req.body.username+'/'+req.body.repository+'.git', 
+  '../repos/'+newRepo._id, function(err, _repo) {
+    if(err) {
+      console.log(err);
+      res.status(500).send('sorry').end();
+    }
+    else {
+      newRepo.save(function(err) {
+        if(err) {
+          console.log(err);
+          res.status(500).send('could not save repo').end();
+        }
+        else res.status(200).json({repoId: newRepo._id});
+      });
+    }
+  });
+  // ...automagicalness - Code to initialize lecture session at a url
+  //                      send instructors the url so they can share with class
 });
+
 
 // POST /repos/start Takes an existing repo and creates a classroom
 //      session for it, etc.
 router.post('/repos/start', function(req, res) {
-
+  // ...automagicalness - Code to initialize lecture session at a url
+  //                      send instructors the url so they can share with class
 });
 
 module.exports = router;
