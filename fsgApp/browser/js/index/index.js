@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
+app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory, LiveUpdateFactory) {
   $scope.title = '<codestream/>';
 
   TimelineFactory.getTimeline(function(commits) {
@@ -20,28 +20,9 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
 
   });
 
-});
-
-app.controller('ChatCtrl', function($scope) {
-
-  $scope.juniors = io.connect('/juniors');
-
-  juniors.on('message', function() {
-
-
-  });
-
-  juniors.on('disconnect', function() {
-
+  LiveUpdateFactory.updateFile().then(function(file) {
+    $scope.liveFile = file;
   })
 
-  $scope.seniors = io.connect('/seniors');
-
-  seniors.on('message', function() {
-
-  })
-  seniors.on('disconnect', function() {
-
-  })
 });
 
