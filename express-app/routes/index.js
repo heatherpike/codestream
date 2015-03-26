@@ -9,6 +9,14 @@ var github = new GitHubApi({
   version: "3.0.0"
 });
 
+router.get('/testman', function(req, res) {
+  res.json({name: "David"});
+});
+router.post('/file_update', function(req, res) {
+  console.log("GOT", req);
+  res.send(200);
+})
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index');
@@ -49,6 +57,11 @@ router.get('/filetree', function(req, res) {
   // console.log('filewalker', fileWalker);
   res.send(fileWalker(process.cwd()));
 })
+
+
+
+
+
 
 
 module.exports = router;
