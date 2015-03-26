@@ -6,17 +6,19 @@
     <script src="/ace-builds/src-min-noconflict/ace.js"></script>
     <script src="/angular-ui-ace/ui-ace.js"></script>
     <script src='/javascripts/app.js'></script>
-    <script src='/javascripts/controllers/main.js'></script>
+    <script src='/javascripts/controllers/MainController.js'></script>
     <script src='/javascripts/factories/TimelineFactory.js'></script>
     <script src='/javascripts/factories/FileSystemFactory.js'></script>
     <script src="/angular-ui-tree/dist/angular-ui-tree.js"></script>
     <script src="/angular-recursion/angular-recursion.min.js"></script>
+    <script src="/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="/angular-ui-tree/dist/angular-ui-tree.min.css"/>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
   </head>
   <body ng-app='WebUI' ng-controller='MainCtrl'>
     <h1>{{ title }}</h1>
     <!-- <pre>{{ files }}</pre> -->
+
     <section>
       <div class="directory">
         <script type="text/ng-template" id="nodes_renderer.html">
@@ -46,8 +48,9 @@
         onChange: aceChanged
         }">
       </div>
-    
-      <div id="chat" class="chatbox">
+
+      <span id="chat" class="chatbox">
+
         <div class="chatform">
           <form id="send-message">
             <input size="35" id="message"></input>
@@ -83,19 +86,23 @@
             });
           </script>
         </div>
-      </div> 
+      </span> 
     </section>
 
-    <div class="timeline">
-      <ol>
-        <li ng-repeat="commit in commits">
-          {{commit.author}}
-          <span class="details">
-            {{commit.date | date:'MM/dd/yyyy @ h:mma'}}
-          </span>
-        </li>
-      </ol>
-    </div>
+
+<!-- Timeline -->
+
+    <ol>
+      <li ng-repeat="commit in commits">
+        {{commit.date | date:'MM/dd/yyyy @ h:mma'}}
+        <span class="details">
+          {{commit.message}}
+        </span>
+      </li>
+    </ol>
+
+<!-- end Timeline -->
+
 
   </body>
 </html>

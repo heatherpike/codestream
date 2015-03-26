@@ -10,11 +10,25 @@ a {
   color: #00B7FF;
 }
 
+#chat{
+	height:400px;
+}
+
+.chatbox{
+  height: 300px;
+  width: 25%;
+  border-color: #605066;
+  border: solid;
+  border-width: 1px; 
+  float: right;
+  text-align: center;
+  vertical-align: top;
+}
 .chatform{
   display: inline-block;
   float: right;
-	border-color: #605066;
-	border: solid;
+  border-color: #605066;
+  border: solid;
   border-width: 1px;
 }
 
@@ -134,19 +148,6 @@ a {
   display: block;
   width: 100px;
   color: #444;
-
-#chat{
-  height:500px;
 }
 
-.chatbox{
-  height: 300px;
-  width: 25%;
-  border-color: #605066;
-  border: solid;
-  border-width: 1px; 
-  float: right;
-  text-align: center;
-  vertical-align: top;
-}
 

@@ -23,5 +23,6 @@
     "angular-ui-ace": "~0.2.3",
     "angular-ui-tree": "~2.2.0",
     "angular-recursion": "~1.0.5"
+    "jquery": "~2.1.3"
   }
 }
