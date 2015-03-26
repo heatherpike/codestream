@@ -1,10 +1,16 @@
 'use strict';
 var router = require('express').Router();
 var timeline = require('./timeline');
-module.exports = router;
 
-router.get('/timeline', function(req, res) {
-  timeline(function(commits) {
-    res.send(commits);
+
+console.log(timeline);
+
+router.get('/', function(req, res) { 
+	console.log("hey");
+  	timeline(function(commits) {
+    	console.log("commits", commits);
+    	res.send(commits);
   });
 });
+
+module.exports = router;

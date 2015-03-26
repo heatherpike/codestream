@@ -10,6 +10,7 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
   $scope.title = '<codestream/>';
 
   TimelineFactory.getTimeline(function(commits) {
+    console.log("commits", commits);
     $scope.commits = commits.reverse();
   });
 

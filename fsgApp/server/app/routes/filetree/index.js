@@ -2,8 +2,11 @@
 var fileTree = require('./filetree');
 
 var router = require('express').Router();
-module.exports = router;
 
-router.get('/filetree', function (req, res) {
-    res.send(fileTree(process.cwd()));
+
+router.get('/', function (req, res) {
+	console.log("filetree route?");
+    res.send(fileTree(__dirname + "/../"));
 });
+
+module.exports = router;

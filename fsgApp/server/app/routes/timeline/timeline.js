@@ -1,11 +1,29 @@
 var Promise = require('bluebird');
 
+var path = require('path');
+
+//Using this path for example
+// /home/williamhuey/Desktop/CodeStuff/
+var cwd = process.cwd();
+
+// [ '', 'home', 'williamhuey', 'Desktop', 'CodeStuff']
+var pathSep = cwd.split(path.sep);
+
+// [ '', 'home', 'williamhuey', 'Desktop']
+var slicedPath = pathSep.slice(0,pathSep.length - 1);
+
+// /home/williamhuey/Desktop/
+var oneUpDirectory = slicedPath.join(path.sep);
+
 module.exports = (function(cb) {
+  console.log("process cwd", process.cwd());
+
   var open = require('nodegit').Repository.open;
-  // var commits = [];
-  // console.log("it ran");
-  // Open the repository directory.
-  open(__dirname + '/../')
+  // var commits = ["hello", "i", "am", "an", "array"];
+  // return commits;
+  console.log("it ran");
+  //Open the repository directory.
+  open(oneUpDirectory)
     // Open the master branch.
     .then(function(repo) {
       return repo.getMasterCommit();
