@@ -10,7 +10,7 @@ var cwd = process.cwd();
 var pathSep = cwd.split(path.sep);
 
 // [ '', 'home', 'williamhuey', 'Desktop']
-var slicedPath = pathSep.slice(0,pathSep.length - 1);
+var slicedPath = pathSep.slice(0, pathSep.length - 1);
 
 // /home/williamhuey/Desktop/
 var oneUpDirectory = slicedPath.join(path.sep);
@@ -32,14 +32,15 @@ module.exports = (function(cb) {
         var history = firstCommitOnMaster.history();
 
         // Create a counter to only show up to 9 entries.
-        var count = 0;
+
 
         history.on('end', function(commits) {
 
           // [1,2,3].map(function(n) { return n * 2}) => [2,4,6]
           var commitsArr = commits.map(function(commit) {
-
+            var count = 1;
             var commitObject = {
+              number: "", //"commit: " + count++,
               id: commit.sha(),
               author: commit.author().name(),
               date: commit.date(),

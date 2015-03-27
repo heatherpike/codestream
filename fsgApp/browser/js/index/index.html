@@ -1,6 +1,31 @@
-<div ng-controller='MainCtrl'>
-    <h1>{{ title }}</h1>
-    <pre>{{ files }}</pre>
+
+  
+
+  <div ng-controller='MainCtrl'>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">{{ title }}</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">sign in</a></li>
+            <li><a href="#">about</a></li>
+            <li><a href="#">contact</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 
     <section class="main">
       <div class="directory">
@@ -28,7 +53,7 @@
         <div class="chatform">
           <form id="send-message">
             <input size="35" id="message"></input>
-            <input type="submit"></input>
+            <!-- <input type="submit"></input> -->
           </form>
         </div>
 
@@ -65,16 +90,23 @@
 
 
 <!-- Timeline -->
-    <div class="timeline">
-      <ol>
-        <li ng-repeat="commit in commits">
-          {{commit.author}}
-          <span class="details">
-            {{commit.date | date:'MM/dd/yyyy @ h:mma'}}
-          </span>
-        </li>
-      </ol>
+    <div class="bar">
+        <div class="timeline">
+          <ol class="ol">
+            <li class="entry" ng-repeat="commit in commits">
+              {{commit.number}}
+              <span class="details">
+                {{commit.date | date:'MM/dd/yyyy @ h:mma'}}
+              </span>
+            </li>
+          </ol>
+        </div>
     </div>
 
-
 <!-- end Timeline -->
+    <div class="footer">
+      <p>made with <span class="glyphicon glyphicon-heart"></span> from team codestream </p>
+    </div>
+
+</div>
+
