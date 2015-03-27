@@ -27,11 +27,13 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
   // })
   socket.on('file updated', function(data) {
     $scope.$apply(function () {
-      $scope.liveFile = data;
+      $scope.liveFile = data.page;
+      $scope.liveFileName = data.file;
     });
   });
 
 });
+
 
 
 
