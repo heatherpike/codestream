@@ -2,13 +2,16 @@
 
 var router = require('express').Router();
 
-router.post('/file_update', function(req, res) {
-	console.log("GOT", req.body.page);
-	res.send(req.body.page);
-})
-
+router.post('/', function(req, res) {
+	var io = require('../../../io')();
+	console.log("GOT", io);
+	var file = req.body.page;
+	// io.on('connection', function(file) {
+		io.emit('file updated', file);	
+	// });
+	res.send(200);
+});
+ 
 module.exports = router;
-
-
 
 

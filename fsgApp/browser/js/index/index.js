@@ -1,4 +1,6 @@
 'use strict';
+var socket = io.connect();
+
 app.config(function ($stateProvider) {
     $stateProvider.state('index', {
         url: '/',
@@ -6,7 +8,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory, LiveUpdateFactory) {
+app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
   $scope.title = '<codestream/>';
 
   TimelineFactory.getTimeline(function(commits) {
@@ -20,9 +22,16 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory, Li
 
   });
 
-  LiveUpdateFactory.updateFile().then(function(file) {
-    $scope.liveFile = file;
-  })
+  // LiveUpdateFactory.updateFile().then(function(file) {
+  //   $scope.liveFile = file;
+  // })
+  socket.on('file updated', function(data) {
+    $scope.$apply(function () {
+      $scope.liveFile = data;
+    });
+  });
 
 });
+
+
 
