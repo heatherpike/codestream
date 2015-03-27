@@ -26,20 +26,3 @@ io.on('connection', function(socket) {
 })
 
 
-// var juniors = require('socket.io').listen(server);
-
-
-// juniors.sockets.on('connection', function (socket){
-// 	socket.on('send message', function(data){
-// 		juniors.sockets.emit('new message', data);
-// 	})
-// });
-
-
-// var seniors = require('socket.io').listen(server);
-
-// 	seniors.sockets.on('connection', function (socket){
-// 	socket.on('send message', function(data){
-// 		seniors.sockets.emit('new message', data);
-// 	})
-// });
