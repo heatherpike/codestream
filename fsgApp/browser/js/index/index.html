@@ -1,21 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>l2c</title>
-    <script src='/angular/angular.js'></script>
-    <script src='/javascripts/app.js'></script>
-    <script src='/javascripts/controllers/MainController.js'></script>
-    <script src='/javascripts/factories/TimelineFactory.js'></script>
-    <script src='/javascripts/factories/FileSystemFactory.js'></script>
-    <script src="/angular-ui-tree/dist/angular-ui-tree.js"></script>
-    <script src="/angular-recursion/angular-recursion.min.js"></script>
-    <script src="/jquery/dist/jquery.min.js"></script>
-    <link rel="stylesheet" href="/angular-ui-tree/dist/angular-ui-tree.min.css"/>
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
-  </head>
-  <body ng-app='WebUI' ng-controller='MainCtrl'>
+<div ng-controller='MainCtrl'>
     <h1>{{ title }}</h1>
-    <!-- <pre>{{ files }}</pre> -->
+    <pre>{{ files }}</pre>
 
     <section class="main">
       <div class="directory">
@@ -36,7 +21,7 @@
       </div>
 
 
-      <pre class="blackboard"></pre>
+      <pre class="blackboard">{{ liveFile }}</pre>
 
       <span id="chat" class="chatbox">
 
@@ -49,7 +34,7 @@
 
         <div class="chatform">
           <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-          <script src="/socket.io/socket.io.js"></script>
+          <script src="/socket.io-client/socket.io.js"></script>
           <script>
             jQuery(function($){
               var socket = io.connect();
@@ -93,7 +78,3 @@
 
 
 <!-- end Timeline -->
-
-
-  </body>
-</html>

@@ -1,1 +1,1 @@
-var app = angular.module('WebUI', ['ui.ace', 'ui.tree']);
+var app = angular.module('WebUI', ['ui.tree', 'RecursionHelper']);
