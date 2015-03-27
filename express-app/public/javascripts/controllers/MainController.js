@@ -2,7 +2,7 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileSystemFactory) 
   $scope.title = '<codestream/>';
 
   TimelineFactory.getTimeline(function(commits) {
-    $scope.commits = commits.reverse();
+    $scope.commits = commits; //.reverse();
   });
 
   FileSystemFactory.fileDirectory().then(function(files) {
