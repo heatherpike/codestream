@@ -4,7 +4,7 @@ var timeline = require('./timeline');
 
 router.get('/', function(req, res) { 
   	timeline(function(commits) {
-    	res.send(commits);
+    	res.status(200).send(commits);
   });
 });
 

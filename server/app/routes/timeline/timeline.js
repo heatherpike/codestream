@@ -18,7 +18,7 @@ var oneUpDirectory = slicedPath.join(path.sep);
 module.exports = (function(cb) {
   var open = require('nodegit').Repository.open;
   //Open the repository directory.
-  open(oneUpDirectory)
+  open(oneUpDirectory+'/')
     // Open the master branch.
     .then(function(repo) {
       return repo.getMasterCommit();

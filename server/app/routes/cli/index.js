@@ -4,12 +4,12 @@ var git = require('gift');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var models = require('../../../db/');
+//var models = require('../../../db/');
 
-router.use(session({secret:'The answer to Life, The Universe and Everything: 42'}));
-router.use(passport.initialize());
-router.use(passport.session());
-
+//router.use(session({secret:'The answer to Life, The Universe and Everything: 42'}));
+//router.use(passport.initialize());
+//router.use(passport.session());
+//
 passport.use(new LocalStrategy(
   function(username, password, done) {
     models('User').findOne({ username: username }, function (err, user) {

@@ -1,11 +1,9 @@
-node_modules/
-student/node_modules/
-**/bower_components/
-student/bower_components/
+.idea
+node_modules
+bower_components
+npm-debug.log
+public
+.DS_Store
 
 *.swo
 *.swp
-
-.DS_Store
-npm_debug.log
-**/npm-debug.log
