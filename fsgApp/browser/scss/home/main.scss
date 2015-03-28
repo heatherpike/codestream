@@ -34,6 +34,12 @@ a {
   float: left;
 }
 
+.ace_editor {
+  display: inline-block;
+  height: 500px;
+  width: 58%;
+}
+
 pre {
   border: none;
 }
@@ -48,6 +54,7 @@ pre {
 
 #chat{
 	height:400px;
+  color: #2c2c2c;
 }
 
 .chatbox{
