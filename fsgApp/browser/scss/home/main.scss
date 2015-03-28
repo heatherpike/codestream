@@ -29,7 +29,7 @@ a {
   height: 500px;
   width: 250px;
   color: #8B8B8B;
-  overflow: scroll;
+  overflow: hidden;
   background-color: #2c2c2c;
   float: left;
 }
@@ -42,6 +42,7 @@ pre {
   background-color: #1A1A1A;
   height: 500px;
   width: 58%;
+  color: #28FE14;
   /*margin: 0 12px;*/
 }
 
@@ -84,8 +85,8 @@ pre {
   margin: 60px 20px;
   height: 4px;
   background: #9b2;
-  
 }
+
 .bar::before,
 .bar::after {
   content: "";
