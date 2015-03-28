@@ -46,14 +46,24 @@
       </div>
 
 
-      <pre class="blackboard">{{ liveFile }}</pre>
+      <!-- <pre class="blackboard">{{ liveFile }}</pre> -->
+
+      <div ng-model="liveFile" ui-ace="{
+        useWrapMode : false,
+        showGutter: true,
+        theme:'monokai',
+        mode: 'javascript',
+        firstLineNumber: 1,
+        onLoad: aceLoaded,
+        onChange: aceChanged
+      }" readonly></div> 
 
       <span id="chat" class="chatbox">
 
         <div class="chatform">
           <form id="send-message">
             <input size="35" id="message"></input>
-            <!-- <input type="submit"></input> -->
+            <!-- <input type="submit"></input> --> 
           </form>
         </div>
 
