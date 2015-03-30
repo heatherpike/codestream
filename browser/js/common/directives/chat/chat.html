@@ -1,13 +1,13 @@
 <span id="chat" class="chatbox">
+  <pre>{{messages}}</pre>
+  <div class="chatform">
+    <form ng-submit="submitChat(chatInput)" id="send-message">
+      <input size="35" id="message" ng-model='chatInput'></input>
+      <button type="submit"></button> 
+    </form>
+  </div>
 
-        <div class="chatform">
-          <form id="send-message">
-            <input size="35" id="message" ng-model='chatInput'></input>
-            <button type="submit" ng-submit="addToChat({{chatInput}})"></button> 
-          </form>
-        </div>
-
-        <div class="chatform" ng-repeat={{message in messages}}>
-            <span>{{message}}</span>
-        </div>
-      </span>
+  <div class="chatform" ng-repeat="message in messages">
+      <div>{{message}}</div>
+  </div>
+</span>

@@ -5,30 +5,40 @@ app.directive('chat', function () {
       templateUrl: 'js/common/directives/chat/chat.html',
       controller: 'ChatCtrl'
   };
-}
+});
 
-app.controller('ChatCtrl', function($scope, socket, chat) {
-  $scope.getRoom = function() {
-    Chat.findRoom().then(function (repo) {
+app.controller('ChatCtrl', function($scope, socket, Chat) {
+  $scope.enter = function() {
+    console.log("chat get", Chat.get);
+    Chat.get().then(function (repo) {
       $scope.room = repo.room; 
       $scope.messages = repo.messages;
-      socket.emit('join', $scope.room) 
+      console.log($scope.messages);
+      socket.emit('join', $scope.room); 
     });
   };
 
-  $scope.chatInput = '';
+  console.log(Chat.get());
+
+  $scope.enter();
+
+  $scope.chatInput = 'type here';
 
   $scope.submitChat = function(message) {
-    socket.emit('message', message,  function() {
-      Chat.add.then(function(message) {
+    console.log("submit called", message);
+    Chat.add(message).then(function(message) {
+      socket.emit('send message', message, function() {
         $scope.chatInput = '';
+        console.log("message", message);
       });
-    });
-  };
+    });  
+  };    
 
-  socket.on('message', function(data) {
-    $scope.messages.push(data);
-  })
+  socket.on('new message', function(data) {
+      console.log("data", data);
+      $scope.messages.push(data);
+    
+  });
 
 });
 

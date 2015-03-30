@@ -1,9 +1,12 @@
-app.factory('Chat', function() {
+app.factory('Chat', function($q) {
 	return {
 		//add a new message to the array of chats
 		//need to set up route
 		add: function(message) {
-			console.log('message added');
+			return new $q(function (resolve, reject) {
+				resolve(message);	
+			})
+			
 			// return $http.post('/api/chat').then(function(res) {
 		 //       return (res.data);
 		 //    });
@@ -16,10 +19,13 @@ app.factory('Chat', function() {
 			// return $http.get('/api/chat').then(function(res) {
 			// 	return (res.data);
 			// });
-			return {
-				room: 'juniors',
-				messages: ['hey', 'how are you']
-			}
+
+			return new $q(function (resolve, reject)  {
+				resolve({
+					room: 'juniors',
+					messages: ['hey', 'how are you']
+				});
+			})
 		}
 	};
 });
