@@ -10,8 +10,13 @@ app.config(function($stateProvider) {
 app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
   $scope.title = '<codestream/>';
   // $scope.aceChanged = LiveUpdateFactory.updateFile(_editor);
-  $scope.aceLoaded = function() {
-    console.log("Ace Loading");
+  $scope.aceLoaded = function(editor) {
+    editor.setShowPrintMargin(false);
+  }
+  $scope.aceChanged = function(editor) {
+    // editor.focus(); 
+    var n = editor.getSession().getValue().split("\n").length; // To count total no. of lines
+    editor.gotoLine(n); //Go to end of document
   }
   TimelineFactory.getTimeline(function(commits) {
     $scope.commits = TimelineFactory.sortByDate(commits);
@@ -44,5 +49,4 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
   ].forEach(function(ln) {
     console.log(ln)
   })
-
 });

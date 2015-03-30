@@ -77,6 +77,14 @@ pre {
 
 /* ---- Timeline ---- */
 
+.bar {
+  position: relative;
+  display: block;
+  margin: 60px 20px;
+  height: 4px;
+  background: #9b2;
+}
+
 .timeline {
   white-space: nowrap;
   overflow-x: scroll;
@@ -84,14 +92,6 @@ pre {
   top: -60px;
   margin: 0 10px;
   z-index: 2;
-}
-
-.bar {
-  position: relative;
-  display: block;
-  margin: 60px 20px;
-  height: 4px;
-  background: #9b2;
 }
 
 .bar::before,
