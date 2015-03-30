@@ -5,6 +5,8 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 //var models = require('../../../db/');
+var mongoose = require('mongoose');
+var Repo = mongoose.model('Repo');
 
 //router.use(session({secret:'The answer to Life, The Universe and Everything: 42'}));
 //router.use(passport.initialize());
@@ -12,7 +14,7 @@ var LocalStrategy = require('passport-local').Strategy;
 //
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    models('User').findOne({ username: username }, function (err, user) {
+    mongoose.model('User').findOne({ username: username }, function (err, user) {
       console.log('err', err, 'user', user);
       if (err) { return done(err); }
       if (!user) {
@@ -56,7 +58,7 @@ router.post('/login', function(req, res) {
           res.status(500).end(); 
         }
         else {
-          models('Repo').find({ userid: user._id }, function(err, repos) {
+          mongoose.model('Repo').find({ userid: user._id }, function(err, repos) {
             if(err) res.status(500).end(); 
             else {
               console.log('this user has these repos:', repos);
@@ -73,11 +75,11 @@ router.post('/login', function(req, res) {
 //      clone the repo locally and set the app to create a classroom session
 //      for it, etc.
 router.post('/repos/create', function(req, res) {
-  var newRepo = new models('Repo')({name: req.body.repository, 
+  var newRepo = new Repo({name: req.body.repository, 
                                  githubUrl: req.body.githubUrl, 
                                  userId: req.user._id});
   git.clone('git@github.com:'+req.body.username+'/'+req.body.repository+'.git', 
-  '../repos/'+newRepo._id, function(err, _repo) {
+  './repos/'+newRepo._id, function(err, _repo) {
     if(err) {
       console.log(err);
       res.status(500).send('sorry').end();
