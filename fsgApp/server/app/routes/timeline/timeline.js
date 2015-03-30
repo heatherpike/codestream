@@ -1,5 +1,4 @@
 var Promise = require('bluebird');
-
 var path = require('path');
 
 //Using this path for example
@@ -40,16 +39,16 @@ module.exports = (function(cb) {
           var commitsArr = commits.map(function(commit) {
             var count = 1;
             var commitObject = {
-              number: "", //"commit: " + count++,
+              number: '', //"commit: " + count++,
               id: commit.sha(),
               author: commit.author().name(),
               date: commit.date(),
               message: commit.message()
             };
             return commitObject;
-          })
+          });
           resolve(commitsArr);
-        })
+        });
 
         // Start emitting events.
         history.start();
