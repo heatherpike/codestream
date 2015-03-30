@@ -1,6 +1,5 @@
 'use strict';
 var socket = io.connect();
-
 app.config(function($stateProvider) {
   $stateProvider.state('index', {
     url: '/',
@@ -10,7 +9,10 @@ app.config(function($stateProvider) {
 
 app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
   $scope.title = '<codestream/>';
-
+  // $scope.aceChanged = LiveUpdateFactory.updateFile(_editor);
+  $scope.aceLoaded = function() {
+    console.log("Ace Loading");
+  }
   TimelineFactory.getTimeline(function(commits) {
     $scope.commits = TimelineFactory.sortByDate(commits);
     console.log($scope.commits)
