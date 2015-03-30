@@ -18,26 +18,23 @@ app.controller('ChatCtrl', function($scope, socket, Chat) {
     });
   };
 
-  console.log(Chat.get());
+  console.log("chat.get", Chat.get());
 
   $scope.enter();
 
-  $scope.chatInput = 'type here';
+  $scope.chatInput = '';
 
   $scope.submitChat = function(message) {
     console.log("submit called", message);
-    Chat.add(message).then(function(message) {
-      socket.emit('send message', message, function() {
-        $scope.chatInput = '';
-        console.log("message", message);
-      });
+    Chat.add(message).then(function(data) {
+      socket.emit('send message', data);
+      $scope.chatInput = '';
     });  
   };    
 
   socket.on('new message', function(data) {
       console.log("data", data);
       $scope.messages.push(data);
-    
   });
 
 });

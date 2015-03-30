@@ -22,7 +22,7 @@ app.factory('Chat', function($q) {
 
 			return new $q(function (resolve, reject)  {
 				resolve({
-					room: 'juniors',
+					room: 'chat room',
 					messages: ['hey', 'how are you']
 				});
 			})
