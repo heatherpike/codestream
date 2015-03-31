@@ -1,6 +1,6 @@
-app.factory('FileTreeFactory', function($http) {
+app.factory('FileTree', function($http) {
   return {
-    fileDirectory: function() {
+    directory: function() {
       return $http.get('/api/filetree').then(function(res) {
         return (res.data);
       });

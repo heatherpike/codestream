@@ -7,32 +7,24 @@ app.config(function($stateProvider) {
   });
 });
 
-app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
-  $scope.title = '<codestream/>';
-  // $scope.aceChanged = LiveUpdateFactory.updateFile(_editor);
-  $scope.aceLoaded = function(editor) {
-    editor.setShowPrintMargin(false);
-  }
-  $scope.aceChanged = function(editor) {
-    // editor.focus(); 
-    var n = editor.getSession().getValue().split("\n").length; // To count total no. of lines
-    editor.gotoLine(n); //Go to end of document
-  }
-  TimelineFactory.getTimeline(function(commits) {
-    $scope.commits = TimelineFactory.sortByDate(commits);
-    console.log($scope.commits)
-  });
+app.controller('MainCtrl', function($scope, FileTree) {
 
-  FileTreeFactory.fileDirectory().then(function(files) {
+  $scope.aceLoaded = function(editor) {
+      editor.setShowPrintMargin(false);
+    }
+  // $scope.aceChanged = function(editor) {
+  //   // editor.focus(); 
+  //   var n = editor.getSession().getValue().split("\n").length; // To count total no. of lines
+  //   editor.gotoLine(n); //Go to end of document
+  // }
+
+  FileTree.directory().then(function(files) {
     var arr = [];
     arr.push(files);
     $scope.files = arr;
 
   });
 
-  // LiveUpdateFactory.updateFile().then(function(file) {
-  //   $scope.liveFile = file;
-  // })
   socket.on('file updated', function(data) {
     $scope.$apply(function() {
       $scope.liveFile = data.page;
