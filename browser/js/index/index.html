@@ -45,9 +45,6 @@
         </div>
       </div>
 
-
-      <!-- <pre class="blackboard">{{ liveFile }}</pre> -->
-
       <div ng-model="liveFile" ui-ace="{
         useWrapMode : false,
         showGutter: true,
@@ -55,9 +52,9 @@
         mode: 'javascript',
         firstLineNumber: 1,
         onLoad: aceLoaded,
-        onChange: aceChanged
+        onChange: aceChanged 
       }" readonly></div> 
-
+ 
       <span id="chat" class="chatbox">
 
         <div class="chatform">
@@ -98,7 +95,6 @@
       </span> 
     </section>
 
-
 <!-- Timeline -->
     <div class="bar">
         <div class="timeline">
@@ -112,8 +108,8 @@
           </ol>
         </div>
     </div>
-
 <!-- end Timeline -->
+
     <div class="footer">
       <p>made with <span class="glyphicon glyphicon-heart"></span> from team codestream </p>
     </div>
