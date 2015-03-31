@@ -10,13 +10,10 @@ app.config(function($stateProvider) {
 
 app.controller('MainCtrl', function($scope, FileTree) {
 
-  $scope.aceLoaded = function(editor) {
-    editor.setShowPrintMargin(false);
-  }
-
   // Scope variable init
   $scope.displayLive = true;
   $scope.aceLoaded = function(_editor) {
+    _editor.setShowPrintMargin(false);
     $scope.editor = _editor;
   };
 
