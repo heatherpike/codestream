@@ -1,6 +1,3 @@
-
-  
-
   <div ng-controller='MainCtrl'>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -29,23 +26,17 @@
 
     <section class="main"> 
       <div class="directory">
-        <script type="text/ng-template" id="nodes_renderer.html">
-          <div ui-tree-handle>
-            {{ file.name }}
-          </div>
-          <ol ui-tree-nodes="" ng-model="file.children">
-            <li ng-repeat="file in file.children" ui-tree-node ng-include="'nodes_renderer.html'">
-            </li>
-          </ol>
-        </script>
-        <div ui-tree>
-          <ol ui-tree-nodes="" ng-model="files" id="tree-root">
-            <li ng-repeat="file in files" ui-tree-node ng-include="'nodes_renderer.html'"></li>
-          </ol>
-        </div>
+      <button class="btn btn-default btn-xs" ng-class="{ disabled: displayLive }" ng-click="liveOn()">Live Mode</button>
+        <treecontrol class="tree-dark"
+           tree-model="files"
+           node-children="children"
+           selected-node=""
+           on-selection="showSelected(node)">
+           <span ng-click="getFile(node)">{{node.name}}</span>
+        </treecontrol>
       </div>
 
-      <div ng-model="liveFile" ui-ace="{
+      <div ng-model="file" ui-ace="{
         useWrapMode : false,
         showGutter: true,
         theme:'monokai',
