@@ -10,13 +10,8 @@ app.config(function($stateProvider) {
 app.controller('MainCtrl', function($scope, FileTree) {
 
   $scope.aceLoaded = function(editor) {
-      editor.setShowPrintMargin(false);
-    }
-  // $scope.aceChanged = function(editor) {
-  //   // editor.focus(); 
-  //   var n = editor.getSession().getValue().split("\n").length; // To count total no. of lines
-  //   editor.gotoLine(n); //Go to end of document
-  // }
+    editor.setShowPrintMargin(false);
+  }
 
   FileTree.directory().then(function(files) {
     var arr = [];
