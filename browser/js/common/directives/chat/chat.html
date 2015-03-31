@@ -1,5 +1,4 @@
 <span id="chat" class="chatbox">
-  <pre>{{messages}}</pre>
   <div class="chatform">
     <form ng-submit="submitChat(chatInput)" id="send-message">
       <input size="35" id="message" ng-model='chatInput'></input>
@@ -7,7 +6,7 @@
     </form>
   </div>
 
-  <div class="chatform" ng-repeat="message in messages">
+  <div class="chatform" ng-repeat="message in messages track by $index">
       <ul>
       <li>{{message}}<br><br></li>
       </ul>
