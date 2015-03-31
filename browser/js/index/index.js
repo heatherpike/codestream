@@ -1,4 +1,5 @@
 'use strict';
+
 var socket = io.connect();
 app.config(function($stateProvider) {
   $stateProvider.state('index', {
@@ -9,35 +10,30 @@ app.config(function($stateProvider) {
 
 app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
   $scope.title = '<codestream/>';
-  // $scope.aceChanged = LiveUpdateFactory.updateFile(_editor);
   $scope.aceLoaded = function(editor) {
+    $scope.editor = editor;
     editor.setShowPrintMargin(false);
-  }
-  $scope.aceChanged = function(editor) {
-    // editor.focus(); 
-    var n = editor.getSession().getValue().split("\n").length; // To count total no. of lines
-    editor.gotoLine(n); //Go to end of document
-  }
+    console.log(editor);
+  } 
+
   TimelineFactory.getTimeline(function(commits) {
     $scope.commits = TimelineFactory.sortByDate(commits);
-    console.log($scope.commits)
   });
-
+ 
   FileTreeFactory.fileDirectory().then(function(files) {
     var arr = [];
     arr.push(files);
     $scope.files = arr;
-
   });
 
-  // LiveUpdateFactory.updateFile().then(function(file) {
-  //   $scope.liveFile = file;
-  // })
   socket.on('file updated', function(data) {
-    $scope.$apply(function() {
-      $scope.liveFile = data.page;
+    
+      console.log("file updated!", data)
+      $scope.editor.setValue(data.page);
       $scope.liveFileName = data.file;
-    });
+      $scope.lineNum = data.line[0];
+      $scope.editor.scrollToRow($scope.lineNum-1);
+      
   });
 
   ['                 .___               __                                 ',
