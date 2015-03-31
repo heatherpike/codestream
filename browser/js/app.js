@@ -1,6 +1,6 @@
 'use strict';
 var app = angular.module('FullstackGeneratedApp', [
-    'ui.router', 'fsaPreBuilt', 'ui.tree', 'RecursionHelper', 'ui.ace'
+   'treeControl', 'ui.router', 'fsaPreBuilt', 'ui.ace'
 ]);
 
 app.config(function($urlRouterProvider, $locationProvider) {
