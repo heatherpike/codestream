@@ -1,4 +1,5 @@
 'use strict';
+
 var socket = io.connect();
 app.config(function($stateProvider) {
   $stateProvider.state('index', {
@@ -6,21 +7,21 @@ app.config(function($stateProvider) {
     templateUrl: 'js/index/index.html'
   });
 });
-
 app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
 
   $scope.title = '<codestream/>';
-  
   // Scope variable init
   $scope.displayLive = true;
   $scope.aceLoaded = function(_editor) {
     $scope.editor = _editor;
+    _editor.setShowPrintMargin(false);
   };
 
   // Display mode function determines which file to display in editor
   $scope.displayMode = function() {
     if($scope.displayLive) {
-      $scope.file = $scope.liveFile;
+      $scope.editor.setValue($scope.liveFile);
+      $scope.editor.scrollToRow($scope.lineNum-1);
     }
     else {
       $scope.file = $scope.fsFile;
@@ -30,22 +31,12 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
   // ng-click function to set live mode on
   $scope.liveOn = function liveOn() {
     $scope.displayLive = true;
+    $scope.displayMode();
   };
-
-  // $scope.aceChanged = LiveUpdateFactory.updateFile(_editor);
-  $scope.aceLoaded = function(editor) {
-    editor.setShowPrintMargin(false);
-  }
-  $scope.aceChanged = function(editor) {
-    // editor.focus(); 
-    var n = editor.getSession().getValue().split("\n").length; // To count total no. of lines
-    editor.gotoLine(n); //Go to end of document
-  }
 
   // Get the timeline, assign to scope
   TimelineFactory.getTimeline(function(commits) {
     $scope.commits = TimelineFactory.sortByDate(commits);
-    console.log($scope.commits)
   });
 
   // Get the filetree to display in sidenav
@@ -64,6 +55,7 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
     if (node.type == 'file') {
       FileTreeFactory.getFile(node.path, function(response) {
         $scope.fsFile = response.data.file;
+        console.log('file', response);
         $scope.displayMode();
         // attempt to reset editor to go to line X (users current line prior
         // to update)
@@ -75,12 +67,14 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
 
   // On file update, set new filedata equal ot livefile to display in editor
   socket.on('file updated', function(data) {
-    $scope.$apply(function() {
+    
+      console.log("file updated!", data)
       $scope.liveFile = data.page;
       $scope.liveFileName = data.file;
+      $scope.lineNum = data.line[0];
       $scope.displayMode();
     });
-  });
+  // });
 
 
 // Fun ascii art, who doesn't love ascii art?

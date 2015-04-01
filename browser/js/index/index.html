@@ -23,7 +23,7 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-
+    
     <section class="main"> 
       <div class="directory">
       <button class="btn btn-default btn-xs" ng-class="{ disabled: displayLive }" ng-click="liveOn()">Live Mode</button>
@@ -35,7 +35,6 @@
            <span ng-click="getFile(node)">{{node.name}}</span>
         </treecontrol>
       </div>
-
       <div ng-model="file" ui-ace="{
         useWrapMode : false,
         showGutter: true,
@@ -45,45 +44,7 @@
         onLoad: aceLoaded,
         onChange: aceChanged 
       }" readonly></div> 
- 
-      <span id="chat" class="chatbox">
-
-        <div class="chatform">
-          <form id="send-message">
-            <input size="35" id="message"></input>
-            <!-- <input type="submit"></input> --> 
-          </form>
-        </div>
-
-        <div class="chatform">
-          <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-          <script src="/socket.io-client/socket.io.js"></script>
-          <script>
-            jQuery(function($){
-              var socket = io.connect();
-              var $messageForm = $('#send-message');
-              var $messageBox = $('#message');
-              var $chat = $('#chat');
-
-              socket.emit('join', 'juniors');
-              
-              $messageForm.submit(function(e){
-                e.preventDefault();
-                var message = {};
-                message.room = 'juniors';
-                message.message = $messageBox.val();
-                // socket.emit('send message', $messageBox.val());
-                socket.emit('send message', message);
-                $messageBox.val('');
-              });
-              
-              socket.on('new message', function(data){
-                $chat.append(data + "<br/>");
-              });
-            });
-          </script>
-        </div>
-      </span> 
+      <chat></chat>
     </section>
 
 <!-- Timeline -->
