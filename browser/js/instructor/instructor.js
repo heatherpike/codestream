@@ -11,7 +11,11 @@ app.config(function($stateProvider){
 	});
 });
 
-app.controller('InstructorCtrl', function ($scope, $state, socket, Chat){
+app.controller('InstructorCtrl', function($scope, $state, socket, Chat, Timeline, FileTree){
+
+	$scope.displayLive = true;
+
+	$scope.title = '<codestream/>';
 
 	$scope.enter = function(){
 		var repo = {
@@ -32,6 +36,21 @@ app.controller('InstructorCtrl', function ($scope, $state, socket, Chat){
 		$scope.messages.push(data);
 		console.log('this is scope messages', $scope.messages);
 	})
+
+	// Get the timeline, assign to scope
+  Timeline.get(function(commits) {
+    $scope.commits = Timeline.sortByDate(commits);
+  });
+
+  // Get the filetree to display in sidenav
+  FileTree.directory().then(function(files) {
+    var arr = [];
+    arr.push(files);
+    $scope.showSelected = function(sel) {
+         $scope.selectedNode = sel;
+     };
+    $scope.files = files;
+  });
 
 
 })
