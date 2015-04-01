@@ -1,4 +1,5 @@
 'use strict';
+
 var socket = io.connect();
 app.config(function($stateProvider) {
   $stateProvider.state('index', {
@@ -7,7 +8,6 @@ app.config(function($stateProvider) {
   });
 });
 
-
 app.controller('MainCtrl', function($scope, FileTree) {
 
   // Scope variable init
@@ -15,13 +15,17 @@ app.controller('MainCtrl', function($scope, FileTree) {
   $scope.aceLoaded = function(_editor) {
     _editor.setShowPrintMargin(false);
     $scope.editor = _editor;
+    _editor.setShowPrintMargin(false);
   };
 
   // Display mode function determines which file to display in editor
   $scope.displayMode = function() {
+
     if ($scope.displayLive) {
-      $scope.file = $scope.liveFile;
+      $scope.editor.setValue($scope.liveFile);
+      $scope.editor.scrollToRow($scope.lineNum - 1);
     } else {
+
       $scope.file = $scope.fsFile;
     }
   };
@@ -29,7 +33,9 @@ app.controller('MainCtrl', function($scope, FileTree) {
   // ng-click function to set live mode on
   $scope.liveOn = function liveOn() {
     $scope.displayLive = true;
+    $scope.displayMode();
   };
+
 
   // Get the filetree to display in sidenav
   FileTree.directory().then(function(files) {
@@ -48,6 +54,7 @@ app.controller('MainCtrl', function($scope, FileTree) {
     if (node.type == 'file') {
       FileTree.getFile(node.path, function(response) {
         $scope.fsFile = response.data.file;
+        console.log('file', response);
         $scope.displayMode();
         // attempt to reset editor to go to line X (users current line prior
         // to update)
@@ -60,12 +67,14 @@ app.controller('MainCtrl', function($scope, FileTree) {
   // On file update, set new filedata equal ot livefile to display in edito
 
   socket.on('file updated', function(data) {
-    $scope.$apply(function() {
-      $scope.liveFile = data.page;
-      $scope.liveFileName = data.file;
-      $scope.displayMode();
-    });
+
+    console.log("file updated!", data)
+    $scope.liveFile = data.page;
+    $scope.liveFileName = data.file;
+    $scope.lineNum = data.line[0];
+    $scope.displayMode();
   });
+  // });
 
 
   // Fun ascii art, who doesn't love ascii art?
