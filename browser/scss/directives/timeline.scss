@@ -83,6 +83,7 @@
 .entry::before {
   content: "";
   position: absolute;
+  //may need to adjust this up depending how dots render on most screens
   top: 3px;
   left: -29px;
   display: block;
