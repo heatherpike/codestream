@@ -7,23 +7,25 @@ app.config(function($stateProvider) {
     templateUrl: 'js/index/index.html'
   });
 });
-app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
 
-  $scope.title = '<codestream/>';
+app.controller('MainCtrl', function($scope, FileTree) {
+
   // Scope variable init
   $scope.displayLive = true;
   $scope.aceLoaded = function(_editor) {
+    _editor.setShowPrintMargin(false);
     $scope.editor = _editor;
     _editor.setShowPrintMargin(false);
   };
 
   // Display mode function determines which file to display in editor
   $scope.displayMode = function() {
-    if($scope.displayLive) {
+
+    if ($scope.displayLive) {
       $scope.editor.setValue($scope.liveFile);
-      $scope.editor.scrollToRow($scope.lineNum-1);
-    }
-    else {
+      $scope.editor.scrollToRow($scope.lineNum - 1);
+    } else {
+
       $scope.file = $scope.fsFile;
     }
   };
@@ -34,18 +36,15 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
     $scope.displayMode();
   };
 
-  // Get the timeline, assign to scope
-  TimelineFactory.getTimeline(function(commits) {
-    $scope.commits = TimelineFactory.sortByDate(commits);
-  });
 
   // Get the filetree to display in sidenav
-  FileTreeFactory.fileDirectory().then(function(files) {
+  FileTree.directory().then(function(files) {
+
     var arr = [];
     arr.push(files);
     $scope.showSelected = function(sel) {
-         $scope.selectedNode = sel;
-     };
+      $scope.selectedNode = sel;
+    };
     $scope.files = files;
   });
 
@@ -53,7 +52,7 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
   $scope.getFile = function(node) {
     $scope.displayLive = false; // not in liveFile display mode anymore
     if (node.type == 'file') {
-      FileTreeFactory.getFile(node.path, function(response) {
+      FileTree.getFile(node.path, function(response) {
         $scope.fsFile = response.data.file;
         console.log('file', response);
         $scope.displayMode();
@@ -65,19 +64,20 @@ app.controller('MainCtrl', function($scope, TimelineFactory, FileTreeFactory) {
     }
   };
 
-  // On file update, set new filedata equal ot livefile to display in editor
+  // On file update, set new filedata equal ot livefile to display in edito
+
   socket.on('file updated', function(data) {
-    
-      console.log("file updated!", data)
-      $scope.liveFile = data.page;
-      $scope.liveFileName = data.file;
-      $scope.lineNum = data.line[0];
-      $scope.displayMode();
-    });
+
+    console.log("file updated!", data)
+    $scope.liveFile = data.page;
+    $scope.liveFileName = data.file;
+    $scope.lineNum = data.line[0];
+    $scope.displayMode();
+  });
   // });
 
 
-// Fun ascii art, who doesn't love ascii art?
+  // Fun ascii art, who doesn't love ascii art?
   ['                 .___               __                                 ',
     '  ____  ____   __| _/____   _______/  |________   ____ _____    _____  ',
     '_/ ___\\/  _ \\ / __ |/ __ \\ /  ___/\\   __\\_  __ \\_/ __ \\__  \\  /     \\ ',

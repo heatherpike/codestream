@@ -16,6 +16,13 @@ navbar {
     }
   }
 
+  .navbar {
+  /*background-color: #33352c;*/
+  }
+  .navbar-inverse .navbar-brand {
+    color: #28FE14;
+  }
+  
   .nav > li > a {
     cursor: pointer;
     &.active {
