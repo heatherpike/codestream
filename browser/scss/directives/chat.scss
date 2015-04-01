@@ -1,12 +1,11 @@
-input {
-  width: 220px;
-}
+
 #chat{
 	height: 500px;
   width: 20%;
   color: #000;
   padding: 15px;
-  background-color: #c5c5c5;
+  background-color: #646464;
+  border-radius: 5px;
 }
 
 .chatbox{
@@ -22,7 +21,14 @@ input {
 
 
 .chatform{
+  input {
+    width: 220px;
+    position: absolute;
+    bottom: -311px;
+    border-radius: 5px;
+  }
   display: inline-block;
+  position: relative;
   //float: left;
   /*border-color: #605066;
   border: solid;
@@ -45,7 +51,7 @@ padding: 5px;
 background: #FFF;
 -webkit-border-radius: 11px;
 -moz-border-radius: 11px;
-border-radius: 11px;
+border-radius: 5px;
 //border: #7F7F7F solid 2px;
 }
 

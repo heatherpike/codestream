@@ -19,10 +19,19 @@ navbar {
   .navbar {
   /*background-color: #33352c;*/
   }
-  .navbar-inverse .navbar-brand {
-    color: #28FE14;
+  .navbar-inverse {
+    background-color:#646464;
+    .navbar-brand {
+      color: #85db18;//#28FE14;
+    }
   }
   
+  .container-fluid {
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+
+
   .nav > li > a {
     cursor: pointer;
     &.active {
