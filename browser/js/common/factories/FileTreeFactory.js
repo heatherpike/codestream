@@ -1,7 +1,7 @@
 app.factory('FileTree', function($http) {
   return {
-    directory: function() {
-      return $http.get('/api/filetree').then(function(res) {
+    directory: function(dirname) {
+      return $http.get('/api/filetree/' + dirname).then(function(res) {
         return (res.data);
       });
     },

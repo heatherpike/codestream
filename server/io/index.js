@@ -22,7 +22,7 @@ module.exports = function (server) {
 			io.to(socketRoom).emit('new message', message)
 			//need to add new message into messages array in db
 			//how do we access db from here?
-	})
+		})
     });
 
 
