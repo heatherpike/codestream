@@ -1,10 +1,11 @@
 var Promise = require('bluebird');
 var path = require('path');
 
-module.exports = (function(cb) {
+module.exports = (function(dirname, cb) {
   var open = require('nodegit').Repository.open;
   //Open the repository directory.
-  open(process.cwd())
+  var path = process.cwd() + '/repos/' + dirname;
+  open(path)
     // Open the master branch.
     .then(function(repo) {
       return repo.getMasterCommit();

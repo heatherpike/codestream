@@ -26,6 +26,7 @@ schema.method('createRemote', function (name, username, password) {
 	github.repos.create({
 		name: name
 	}, function (err, repoInfo) {
+		if (err) deferred.reject(err);
 		deferred.resolve(repoInfo);
 	})
 	return deferred.promise;
@@ -49,6 +50,7 @@ schema.method('addHook', function (repoInfo, username, password) {
 			secret: 'codestream is awesome'
 		}
 	}, function (err, hookInfo) {
+		if (err) deferred.reject(err);
 		deferred.resolve(repoInfo);
 	})
 	return deferred.promise;
@@ -58,12 +60,12 @@ schema.method('initialCommit', function (file, repo) {
 	var deferred = Q.defer();
 	var gitRepo = git(repo);
 	gitRepo.add(file, function (err) {
-		if (err) console.log("Error adding file to local repository", err);
+		if (err) deferred.reject(err);
 		gitRepo.commit("auto committed by Codestream", function (err) {
-			if (err) console.log("Error commiting files", err);
+			if (err) deferred.reject(err);
 			gitRepo.remote_push('origin', 'master', function (err) {
-				if (err) console.log("Error pushing to remote", err);
-				return deferred.resolve();
+				if (err) deferred.reject(err);
+				deferred.resolve();
 			});
 		});
 	});
@@ -75,11 +77,8 @@ schema.method('clone', function (repoInfo, repoId, username) {
 
 	git.clone('git@github.com:'+username+'/'+repoInfo.name+'.git', 
   './repos/'+repoId, function(err, _repo) {
-    if(err) {
-      console.log(err);
-      console.log(_repo);
-    }
-    	deferred.resolve(repoInfo);  
+	    if(err) deferred.reject(err);
+	    deferred.resolve(repoInfo);  
 	});
 	return deferred.promise;
 });

@@ -6,13 +6,11 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var Repo = mongoose.model('Repo');
-var appRoot = require('app-root-path');
 var nodeGit = require('nodegit');
 var fs = require('fs');
-var io = require('socket.io')();
-//router.use(session({secret:'The answer to Life, The Universe and Everything: 42'}));
-//router.use(passport.initialize());
-//router.use(passport.session());
+var path = require('path');
+
+var rootPath = path.resolve(__dirname + "/../../../../");
 var github = new GitHubApi({
   version: '3.0.0'
 });
@@ -20,7 +18,6 @@ var github = new GitHubApi({
 passport.use(new LocalStrategy(
   function(username, password, done) {
     mongoose.model('User').findOne({ username: username }, function (err, user) {
-      console.log('err', err, 'user', user);
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
@@ -42,14 +39,15 @@ passport.deserializeUser(function(obj, done) {
 });
 
 // Github webhook listener
-router.post('/repos/:repoId/push', function(req, res) {
+router.post('/repos/:repoId/push', function (req, res, next) {
+  var io = require('../../../io')();
   var repoId = req.params.repoId;
-  var repoPath = appRoot + '/repos/' + repoId;
+  var repoPath = rootPath + '/repos/' + repoId;
   var repo = git(repoPath);
   repo.sync('origin', 'master', function (err) {
     if (err) next(err);
-    io.to(repoId).emit('update', "repo updated");
-    res.end();
+    io.to(repoId).emit('repo updated', repoId);
+    res.sendStatus(200);
   });
 })
 
@@ -116,7 +114,7 @@ router.post('/repos/create', function (req, res, next) {
       newRepo.save(function (err) {
         if (err) next('Save Error', err);
         //create a dummy file and push to remote. Allows local to sync with remote
-        var repoPath = appRoot + '/repos/' + newRepo._id;
+        var repoPath = rootPath + '/repos/' + newRepo._id;
         var filePath = repoPath + '/codestream.txt'
         fs.writeFileSync(filePath, "Auto created by Codestream");
         newRepo.initialCommit(filePath, repoPath)
@@ -126,7 +124,7 @@ router.post('/repos/create', function (req, res, next) {
       })
     })
     .catch(function (err) {
-      res.status(404).send("Server Error", err);
+      res.sendStatus(500).send("Server Error", err);
     })
     .done();
 });
