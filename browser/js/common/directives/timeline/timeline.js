@@ -9,8 +9,9 @@ app.directive('timeline', function() {
 
 app.controller('TimelineCtrl', function($scope, socket, Timeline) {
   
-	Timeline.get($scope.room, function(commits) {
-    	$scope.commits = Timeline.sortByDate(commits);
+	Timeline.get($scope.room, function(repo) {
+    	$scope.commits = Timeline.sortByDate(repo.commits);
+      $scope.githubUrl = repo.githubUrl;
   	});
 
 	socket.on('repo updated', function (repoId) {

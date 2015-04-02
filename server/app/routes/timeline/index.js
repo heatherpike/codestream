@@ -1,10 +1,13 @@
 'use strict';
 var router = require('express').Router();
 var timeline = require('./timeline');
+var mongoose = require('mongoose');
 
 router.get('/:dirname', function (req, res, next) {
-	timeline(req.params.dirname, function(commits) {
-    res.status(200).send(commits);
+	mongoose.model('Repo').findOne({_id: dirname}, function(err, repo) {
+		timeline(req.params.dirname, function(commits) {
+    	res.status(200).send({githubUrl: repo.githubUrl, commits: commits});
+	})
   });
 })
 

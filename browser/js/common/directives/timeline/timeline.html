@@ -3,7 +3,7 @@
         <div class="timeline">
           <ol class="ol">
             <li class="entry" ng-repeat="commit in commits">
-              {{commit.number}}
+              <a href="{{githubUrl}}+'/tree/'+{{commit.number}}" target="_blank">{{commit.number}}</a>
               <span class="details">
                 {{commit.date | date:'MM/dd/yyyy @ h:mma'}}
               </span>
