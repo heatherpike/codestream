@@ -5,7 +5,7 @@
   display: block;
   margin: 60px 80px;
   height: 4px;
-  background: #9b2;
+  background: #85db18;//#9b2;
 }
 
 .timeline {
@@ -27,7 +27,7 @@
   width: 0;
   height: 0;
   border-radius: 10px;
-  border: 10px solid #9b2;
+  border: 10px solid #85db18;//#9b2;
 }
 .bar::before {
   left: -5px;
@@ -36,7 +36,7 @@
   right: -10px;
   border: 10px solid transparent;
   border-right: 0;
-  border-left: 20px solid #9b2;
+  border-left: 20px solid #85db18;//#9b2;
   border-radius: 3px;
 }
 
@@ -56,7 +56,7 @@
   width: 0;
   height: 0;
   border-radius: 10px;
-  border: 10px solid #9b2;
+  border: 10px solid #85db18;//#9b2;
 }
 .bar::before {
   left: -5px;
@@ -65,7 +65,7 @@
   right: -10px;
   border: 10px solid transparent;
   border-right: 0;
-  border-left: 20px solid #9b2;
+  border-left: 20px solid #85db18;//#9b2;
   border-radius: 3px;
 }
 
@@ -73,7 +73,7 @@
 
 .entry {
   position: relative;
-  top: -61px;
+  top: -60px;
   display: inline-block;
   /*float: left;*/
   width: 74px;
@@ -83,14 +83,15 @@
 .entry::before {
   content: "";
   position: absolute;
+  //may need to adjust this up depending how dots render on most screens
   top: 3px;
   left: -29px;
   display: block;
   width: 14px;
   height: 14px;
-  border: 4px solid #9b2;
+  border: 4px solid #85db18;//#9b2;
   border-radius: 10px;
-  background: #eee;
+  background: #85db18;
 }
 
 /* ---- Details ---- */
@@ -103,11 +104,9 @@
   top: 60px;
   padding: 15px;
   border-radius: 3px;
-  border-right: 2px solid rgba(0,0,0,.1);
-  border-bottom: 2px solid rgba(0,0,0,.1);
   transform: rotate(45deg);
   font: 12px arial;
-  background: #eee;
+  background: #fff;
 }
 .timeline .details::before {
   content: "";
@@ -126,7 +125,7 @@
 
 .entry:hover {
   cursor: pointer;
-  color: #28FE14;
+  color: #777;
 }
 .entry:hover::before {
   top: 3px;
@@ -134,7 +133,7 @@
   width: 14px;
   height: 14px;
   border-width: 5px;
-  border-color: #28fe14;
+  border-color: #777;
 }
 .entry:hover .details {
   display: block;
