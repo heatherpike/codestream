@@ -1,37 +1,37 @@
-  <div ng-controller='MainCtrl'>
+<div ng-controller='MainCtrl'>
 
-    <navbar></navbar>
+  <navbar></navbar>
 
-    <section class="main"> 
-      <div class="directory">
-        <button class="btn btn-default btn-xs" ng-class="{ disabled: displayLive }" ng-click="liveOn()">Live Mode</button>
-        <treecontrol class="tree-dark"
-           tree-model="files"
-           node-children="children"
-           selected-node=""
-           on-selection="showSelected(node)">
-           <span ng-click="getFile(node)">{{node.name}}</span>
-        </treecontrol>
-      </div>
-      
-      <div ng-model="file" ui-ace="{  
-        useWrapMode : false,
-        showGutter: true,
-        theme:'monokai',
-        mode: 'javascript',
-        firstLineNumber: 1,
-        onLoad: aceLoaded,
-        onChange: aceChanged 
-      }" readonly></div> 
-      
-      <chat></chat>
-    </section>
-
-    <timeline></timeline>
-
-    <div class="footer">
-      <p>made with<span class="glyphicon glyphicon-heart"></span>from team codestream</p>
+  <section class="main"> 
+    <div class="directory">
+      <button class="btn btn-default btn-xs" ng-class="{ disabled: displayLive }" ng-click="liveOn()">Live Mode</button>
+      <treecontrol class="tree-dark"
+         tree-model="files"
+         node-children="children"
+         selected-node=""
+         on-selection="showSelected(node)">
+         <span ng-click="getFile(node)">{{node.name}}</span>
+      </treecontrol>
     </div>
+    
+    <div ng-model="file" ui-ace="{  
+      useWrapMode : false,
+      showGutter: true,
+      theme:'monokai',
+      mode: 'javascript',
+      firstLineNumber: 1,
+      onLoad: aceLoaded,
+      onChange: aceChanged 
+    }" readonly></div> 
+    
+    <chat></chat>
+  </section>
+
+  <timeline></timeline>
+
+  <div class="footer">
+    <p>made with<span class="glyphicon glyphicon-glass"></span>from team codestream</p>
+  </div>
 
 </div>
 

@@ -1,12 +1,16 @@
-<span id="chat" class="chatbox">
-  <div class="chat-window" ng-repeat="message in messages track by $index">
-      <ul>
-      <li class="bubble">{{message}}</li>
-      </ul>
-  </div>
-  <div class="chatform">
-    <form ng-submit="submitChat(chatInput)" id="send-message">
-      <input placeholder="ask a question..." size="35" id="message" ng-model='chatInput'></input>
-    </form>
-  </div> 
-</span>
+<div class="parent">
+   <div class="header">
+      <div class="chatform">
+        <form ng-submit="submitChat(chatInput)" id="send-message">
+          <input placeholder="ask a question..." size="35" id="message" ng-model='chatInput'></input>
+        </form>
+    </div>
+    </div> 
+   <div class="scrollContainer">
+      <div class="innerScroll" ng-repeat="message in messages track by $index">
+        <ul>
+          <li class="bubble">{{message}}</li>
+        </ul>
+      </div>
+   </div>
+</div>
