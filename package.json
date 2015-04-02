@@ -41,7 +41,7 @@
     "lodash": "^3.3.0",
     "mocha-mongoose": "^1.0.3",
     "mongodb": "^1.4.33",
-    "mongoose": "^3.8.23",
+    "mongoose": ">4.0.0",
     "nodegit": "^0.3.3",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
