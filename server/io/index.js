@@ -7,7 +7,6 @@ module.exports = function (server) {
     if (io) return io;
 
     io = socketio(server);
-
     io.on('connection', function (socket) {
         // Now have access to socket, wowzers!
         var socketRoom;
@@ -22,10 +21,8 @@ module.exports = function (server) {
 			io.to(socketRoom).emit('new message', message)
 			//need to add new message into messages array in db
 			//how do we access db from here?
-		})
+		});
     });
-
-
 }; 
 
 

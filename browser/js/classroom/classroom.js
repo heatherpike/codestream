@@ -14,6 +14,19 @@ app.controller('ClassroomCtrl', function($scope, socket, FileTree, $stateParams)
     socket.emit('join', $scope.room);
   }
 
+  socket.on('repo updated', function (repoId) {
+    FileTree.directory(repoId)
+    .then(function(files) {
+      var arr = [];
+      arr.push(files);
+      $scope.showSelected = function(sel) {
+        $scope.selectedNode = sel;
+      };
+      $scope.files = files;
+    });
+
+  });
+
   $scope.enter();
   // Scope variable init
   $scope.displayLive = true;

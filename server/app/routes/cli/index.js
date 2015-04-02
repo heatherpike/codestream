@@ -8,10 +8,9 @@ var mongoose = require('mongoose');
 var Repo = mongoose.model('Repo');
 var nodeGit = require('nodegit');
 var fs = require('fs');
-var io = require('socket.io')();
 var path = require('path');
 
-var rootPath = path.resolve(__dirname + "/../../../../"));
+var rootPath = path.resolve(__dirname + "/../../../../");
 var github = new GitHubApi({
   version: '3.0.0'
 });
@@ -41,13 +40,14 @@ passport.deserializeUser(function(obj, done) {
 
 // Github webhook listener
 router.post('/repos/:repoId/push', function (req, res, next) {
+  var io = require('../../../io')();
   var repoId = req.params.repoId;
   var repoPath = rootPath + '/repos/' + repoId;
   var repo = git(repoPath);
   repo.sync('origin', 'master', function (err) {
     if (err) next(err);
-    io.to(repoId).emit('repo update', repoId);
-    res.sendStatus(200).end();
+    io.to(repoId).emit('repo updated', repoId);
+    res.sendStatus(200);
   });
 })
 
