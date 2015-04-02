@@ -11,7 +11,8 @@ var github = new GitHubApi({
 var schema = new mongoose.Schema({
   name: String,
   githubUrl: {type: String, unique: true},
-  userId: mongoose.Schema.Types.ObjectId
+  userId: mongoose.Schema.Types.ObjectId,
+  chatComments: [String]
 });
 
 schema.method('createRemote', function (name, username, password) {
