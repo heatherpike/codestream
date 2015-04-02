@@ -1,82 +1,53 @@
-
-#chat{
-	height: 500px;
+.parent {
   width: 20%;
-  color: #000;
-  padding: 15px;
+  margin:0px;
+  padding:0px;
+  height: 500px;
   background-color: #646464;
-  border-radius: 5px;
-}
-
-.chatbox{
-  height: 300px;
-  width: 20%;
-  /*border-color: #605066;
-  border: solid;
-  border-width: 1px; */
+  position: relative;
+  display: inline-block;
   float: right;
-  /*text-align: center;*/
-  vertical-align: top;
+  border-radius: 5px;
+  padding: 15px;
 }
-
-
-.chatform{
+.header {
   input {
-    width: 220px;
-    position: absolute;
-    bottom: -311px;
+    width: 100%;
     border-radius: 5px;
   }
-  display: inline-block;
+}
+
+.scrollContainer {
+  position: absolute;
+  bottom:0px;
+  top:55px;
+  left:0px;
+  right: 0px;
+  overflow: scroll; 
+}
+
+.innerScroll {
   position: relative;
-  //float: left;
-  /*border-color: #605066;
-  border: solid;
-  border-width: 1px;*/
-}
-
-.chat-window {
+  padding: 5px;
+  
   ul {
-	list-style-type: none;
-	margin: 30px 0;
-	}
+    padding: 0px;
+    margin: 5px 20px;
+    list-style-type: none;
+  }
+   .bubble {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    background: #FFF;
+    -webkit-border-radius: 11px;
+    -moz-border-radius: 11px;
+    border-radius: 8px;
+    border: #7F7F7F solid 2px;
+  }
 }
 
 
-.bubble {
-position: relative;
-width: 90%;
-height: 100%;
-padding: 5px;
-background: #FFF;
--webkit-border-radius: 11px;
--moz-border-radius: 11px;
-border-radius: 5px;
-//border: #7F7F7F solid 2px;
-}
 
-// .bubble:after {
-// content: '';
-// position: absolute;
-// border-style: solid;
-// border-width: 15px 15px 15px 0;
-// border-color: transparent #FFFFFF;
-// display: block;
-// width: 0;
-// z-index: 1;
-// left: -15px;
-// top: 12px;
-// }
-
-// .bubble:before {
-// content: '';
-// position: absolute;
-// border-style: solid;
-// border-width: 16px 16px 16px 0;
-// border-color: transparent #7F7F7F;
-// display: block;
-// width: 0;
-// z-index: 0;
-// left: -18px;
-// top: 11px;
-// }

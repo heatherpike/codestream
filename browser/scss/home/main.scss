@@ -12,6 +12,7 @@ a {
 }
 
 .main {
+  @include clearfix;
   margin: 0 14px;
   height: 30%;
 }
