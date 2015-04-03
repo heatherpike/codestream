@@ -14,7 +14,7 @@ module.exports = function(app) {
             username: username
         }, function(err, user) {
             if (err) return done(err);
-            // user.correctPassword is a method from our UserModel schema.
+            //user.correctPassword is a method from our UserModel schema.
             if (!user || !user.correctPassword(password)) return done(null, false);
             // Properly authenticated.
             done(null, user);

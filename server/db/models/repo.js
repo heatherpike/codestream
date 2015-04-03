@@ -40,6 +40,7 @@ schema.method('addHook', function (repoInfo, username, password) {
 		username: username,
 		password: password
 	});
+
 	github.repos.createHook({
 		user: username,
 		repo: repoInfo.name,
@@ -76,7 +77,7 @@ schema.method('clone', function (repoInfo, repoId, username) {
 	var deferred = Q.defer();
 
 	git.clone('git@github.com:'+username+'/'+repoInfo.name+'.git', 
-  './repos/'+repoId, function(err, _repo) {
+  '../repos/'+repoId, function(err, _repo) {
 	    if(err) deferred.reject(err);
 	    deferred.resolve(repoInfo);  
 	});
