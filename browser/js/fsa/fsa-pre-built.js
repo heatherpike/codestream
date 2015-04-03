@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
     'use strict';
 
@@ -7,7 +7,7 @@
 
     var app = angular.module('fsaPreBuilt', []);
 
-    app.factory('Socket', function ($location) {
+    app.factory('Socket', function($location) {
 
         if (!window.io) throw new Error('socket.io not found!');
 
@@ -35,7 +35,7 @@
         notAuthorized: 'auth-not-authorized'
     });
 
-    app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
+    app.factory('AuthInterceptor', function($rootScope, $q, AUTH_EVENTS) {
         var statusDict = {
             401: AUTH_EVENTS.notAuthenticated,
             403: AUTH_EVENTS.notAuthorized,
@@ -43,31 +43,31 @@
             440: AUTH_EVENTS.sessionTimeout
         };
         return {
-            responseError: function (response) {
+            responseError: function(response) {
                 $rootScope.$broadcast(statusDict[response.status], response);
                 return $q.reject(response);
             }
         };
     });
 
-    app.config(function ($httpProvider) {
+    app.config(function($httpProvider) {
         $httpProvider.interceptors.push([
             '$injector',
-            function ($injector) {
+            function($injector) {
                 return $injector.get('AuthInterceptor');
             }
         ]);
     });
 
-    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
+    app.service('AuthService', function($http, Session, $rootScope, AUTH_EVENTS, $q) {
 
         // Uses the session factory to see if an
         // authenticated user is currently registered.
-        this.isAuthenticated = function () {
+        this.isAuthenticated = function() {
             return !!Session.user;
         };
 
-        this.getLoggedInUser = function () {
+        this.getLoggedInUser = function() {
 
             // If an authenticated session exists, we
             // return the user attached to that session
@@ -80,22 +80,27 @@
             // Make request GET /session.
             // If it returns a user, call onSuccessfulLogin with the response.
             // If it returns a 401 response, we catch it and instead resolve to null.
-            return $http.get('/session').then(onSuccessfulLogin).catch(function () {
+            return $http.get('/session').then(onSuccessfulLogin).catch(function() {
                 return null;
             });
 
         };
+        this.signup = function(signupinfo) {
 
-        this.login = function (credentials) {
+        }
+
+        this.login = function(credentials) {
             return $http.post('/login', credentials)
                 .then(onSuccessfulLogin)
-                .catch(function (response) {
-                    return $q.reject({ message: 'Invalid login credentials.' });
+                .catch(function(response) {
+                    return $q.reject({
+                        message: 'Invalid login credentials.'
+                    });
                 });
         };
 
-        this.logout = function () {
-            return $http.get('/logout').then(function () {
+        this.logout = function() {
+            return $http.get('/logout').then(function() {
                 Session.destroy();
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             });
@@ -110,27 +115,27 @@
 
     });
 
-    app.service('Session', function ($rootScope, AUTH_EVENTS) {
+    app.service('Session', function($rootScope, AUTH_EVENTS) {
 
         var self = this;
 
-        $rootScope.$on(AUTH_EVENTS.notAuthenticated, function () {
+        $rootScope.$on(AUTH_EVENTS.notAuthenticated, function() {
             self.destroy();
         });
 
-        $rootScope.$on(AUTH_EVENTS.sessionTimeout, function () {
+        $rootScope.$on(AUTH_EVENTS.sessionTimeout, function() {
             self.destroy();
         });
 
         this.id = null;
         this.user = null;
 
-        this.create = function (sessionId, user) {
+        this.create = function(sessionId, user) {
             this.id = sessionId;
             this.user = user;
         };
 
-        this.destroy = function () {
+        this.destroy = function() {
             this.id = null;
             this.user = null;
         };

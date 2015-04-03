@@ -13,6 +13,9 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
       }, {
         label: 'About',
         state: 'about'
+      }, {
+        label: 'Sign up',
+        state: 'signup'
       }];
 
       scope.user = null;
