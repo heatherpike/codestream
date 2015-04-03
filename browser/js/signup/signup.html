@@ -1,0 +1,18 @@
+<form style="margin:0px 200px;" id="signup-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup(signup)">
+
+    <div class="alert alert-danger" ng-show="error">
+        <span class="glyphicon glyphicon-exclamation-sign"></span>
+        <span class="sr-only">Error:</span>
+        {{ error }}
+    </div>
+    <h1>Instructor sign up</h1>
+    <div class="form-group">
+        <label for="username">Github Username</label>
+        <input type="text" ng-model="signup.username" class="form-control" id="username" placeholder="Enter Username">
+    </div>
+    <div class="form-group">
+        <label for="signup-password">Password</label>
+        <input type="password" ng-model="signup.password" class="form-control" id="signup-password" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>

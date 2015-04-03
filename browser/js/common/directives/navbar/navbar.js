@@ -8,22 +8,21 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
     link: function(scope) {
 
 
-    scope.title = '<codestream />',
-      
-      scope.items = [{
-        label: 'Home',
-        state: 'index'
-      }, {
-        label: 'About',
-        state: 'about'
-      }, {
-        label: 'Sign up', 
-        state: 'signup'
-      }, {
-        label: 'Student',
-        state: 'classroom' 
+      scope.title = '<codestream/>',
 
-      }];
+        scope.items = [{
+          label: 'Home',
+          state: 'index'
+        }, {
+          label: 'About',
+          state: 'about'
+        }, {
+          label: 'Sign up',
+          state: 'signup'
+        }, {
+          label: 'Student',
+          state: 'classroom'
+        }];
 
       scope.user = null;
 
