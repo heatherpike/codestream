@@ -13,28 +13,3 @@ var github = new GitHubApi({
 router.get('/', function(req, res) {
   res.render('index');
 });
-
-router.post("/login", function(req, res, next) {
-  console.log(req.body);
-  github.authenticate({
-    type: 'basic',
-    username: req.body.username,
-    password: req.body.password
-  });
-
-  github.repos.createHook({
-    user: req.body.username,
-    repo: req.body.repository,
-    name: "web",
-    config: {
-      url: "http://codestream.co",
-      content_type: "json",
-      secret: "codestream"
-    },
-    events: ['push'],
-    active: true
-  }, function(err, data) {
-    if (err) console.log(err);
-    res.end();
-  });
-});
