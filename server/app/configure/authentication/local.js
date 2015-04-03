@@ -9,9 +9,9 @@ module.exports = function(app) {
 
     // When passport.authenticate('local') is used, this function will receive
     // the email and password to run the actual authentication logic.
-    var strategyFn = function(email, password, done) {
+    var strategyFn = function(username, password, done) {
         UserModel.findOne({
-            email: email
+            username: username
         }, function(err, user) {
             if (err) return done(err);
             // user.correctPassword is a method from our UserModel schema.
@@ -22,7 +22,7 @@ module.exports = function(app) {
     };
 
     passport.use(new LocalStrategy({
-        usernameField: 'email',
+        usernameField: 'username',
         passwordField: 'password'
     }, strategyFn));
 
@@ -56,34 +56,33 @@ module.exports = function(app) {
 
     app.post('/signup', function(req, res, next) {
         console.log('server signup');
-        var authCb = function(err, user) {
+        // var authCb = function(err, user) {
+        //     console.log('getting to authCb');
+        //     console.log('user is', err);
+        //     if (err) return next(err);
 
-            if (err) return next(err);
+        //     if (!user) {
+        //         var error = new Error('Invalid login credentials');
+        //         error.status = 401;
+        //         return next(error);
+        //     }
 
-            if (!user) {
-                var error = new Error('Invalid login credentials');
-                error.status = 401;
-                return next(error);
-            }
+        //     // req.logIn will establish our session.
+        //     req.logIn(user, function(err) {
+        //         if (err) return next(err);
+        //         // We respond with a reponse object that has user with _id and email.
+        //         res.status(200).send({
+        //             user: _.omit(user.toJSON(), ['password', 'salt'])
+        //         });
+        //     });
 
-            // req.logIn will establish our session.
-            req.logIn(user, function(err) {
-                if (err) return next(err);
-                // We respond with a reponse object that has user with _id and email.
-                res.status(200).send({
-                    user: _.omit(user.toJSON(), ['password', 'salt'])
-                });
-            });
-
-        };
+        // };
 
         UserModel.create(req.body, function(err, user) {
+            console.log('getting here? request body', req.body);
             if (err) return next(err);
-            passport.authenticate('local', authCb)(req, res, next);
+            res.send(user);
         });
-
-
-
     });
 
     // app.get('isAuthenticated') can be used as middleware across your application
