@@ -6,13 +6,23 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
     scope: {},
     templateUrl: 'js/common/directives/navbar/navbar.html',
     link: function(scope) {
-      scope.title = '<codestream/>';
+
+
+    scope.title = '<codestream />',
+      
       scope.items = [{
         label: 'Home',
-        state: 'home'
+        state: 'index'
       }, {
         label: 'About',
         state: 'about'
+      }, {
+        label: 'Sign up', 
+        state: 'signup'
+      }, {
+        label: 'Student',
+        state: 'classroom' 
+
       }];
 
       scope.user = null;
