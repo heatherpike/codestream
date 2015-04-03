@@ -86,8 +86,16 @@
 
         };
         this.signup = function(signupinfo) {
+            console.log('got to pre-built');
+            return $http.post('/signup', signupinfo)
+                .then(onSuccessfulLogin)
+                .catch(function(response) {
+                    return $q.reject({
+                        message: 'Problem signing up!'
+                    });
+                });
 
-        }
+        };
 
         this.login = function(credentials) {
             return $http.post('/login', credentials)

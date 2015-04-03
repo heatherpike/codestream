@@ -15,10 +15,11 @@ app.controller('SignupCtrl', function($scope, AuthService, $state) {
 
 
     $scope.sendSignup = function(signupInfo) {
-
+        console.log('sending frontend signup');
         $scope.error = null;
 
         AuthService.signup(signupInfo).then(function() {
+            console.log('going to auth service');
             $state.go('instructor');
         }).catch(function() {
             $scope.error = 'Error registering user!';
