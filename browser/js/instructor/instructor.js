@@ -1,5 +1,14 @@
 'use strict'
 
+
+var socket = io.connect();
+app.config(function($stateProvider) {
+  $stateProvider.state('instructor', {
+    url: '/instructor/:lectureId',
+    templateUrl: 'js/instructor/instructor.html'
+  });
+});
+
 app.config(function($stateProvider){
 
 	$stateProvider.state('/instructor', {
@@ -11,32 +20,30 @@ app.config(function($stateProvider){
 	});
 });
 
-app.controller('InstructorCtrl', function($scope, $state, socket, Chat, Timeline, FileTree){
+app.controller('InstructorCtrl', function($scope, $state, $stateParams, socket, Chat, Timeline, FileTree){
 
 	$scope.displayLive = true;
 
-	$scope.title = '<codestream/>';
+	
+	$scope.enter = function () {
+    $scope.room = $stateParams.lectureId;
+    socket.emit('join', $scope.room);
+  }
 
-	$scope.enter = function(){
-		var repo = {
-			room: 'chat room', 
-			messages: []
-		}; 
-		$scope.room = repo.room; 
-		$scope.messages = repo.messages; 
-		
-		socket.emit('join', $scope.room);
-	}
+  socket.on('repo updated', function (repoId) {
+    FileTree.directory(repoId)
+    .then(function(files) {
+      var arr = [];
+      arr.push(files);
+      $scope.showSelected = function(sel) {
+        $scope.selectedNode = sel;
+      };
+      $scope.files = files;
+    });
 
-	$scope.enter();
+  });
 
-	$scope.chatInput = '';
-
-	socket.on('new message', function(data){
-		$scope.messages.push(data);
-		console.log('this is scope messages', $scope.messages);
-	})
-
+  $scope.enter();
 	// Get the timeline, assign to scope
   Timeline.get(function(commits) {
     $scope.commits = Timeline.sortByDate(commits);
