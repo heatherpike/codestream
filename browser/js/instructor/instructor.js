@@ -45,19 +45,19 @@ app.controller('InstructorCtrl', function($scope, $state, $stateParams, socket, 
 
   $scope.enter();
 	// Get the timeline, assign to scope
-  Timeline.get(function(commits) {
-    $scope.commits = Timeline.sortByDate(commits);
-  });
+  // Timeline.get(function(commits) {
+  //   $scope.commits = Timeline.sortByDate(commits);
+  // });
 
-  // Get the filetree to display in sidenav
-  FileTree.directory().then(function(files) {
-    var arr = [];
-    arr.push(files);
-    $scope.showSelected = function(sel) {
-         $scope.selectedNode = sel;
-     };
-    $scope.files = files;
-  });
+  // // Get the filetree to display in sidenav
+  // FileTree.directory().then(function(files) {
+  //   var arr = [];
+  //   arr.push(files);
+  //   $scope.showSelected = function(sel) {
+  //        $scope.selectedNode = sel;
+  //    };
+  //   $scope.files = files;
+  // });
 
 
 })
