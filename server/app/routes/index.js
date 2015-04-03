@@ -14,5 +14,5 @@ router.use('/instructor', require('./instructor'));
 // Make sure this is after all of
 // the registered routes!
 router.use(function(req, res) {
-  res.status(404).end();
+  res.status(req.err.status).send(req.err.message);
 });

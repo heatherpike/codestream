@@ -3,18 +3,12 @@ navbar {
   display: block;
   background: #a1a1a1;
 
-  fullstack-logo {
-    padding-top: 10px;
-    margin-right: 20px;
-    width: 30px;
-  }
-
-  a {
-    color: white;
-    &:hover {
-      color: white;
-    }
-  }
+  // a {
+  //   color: white;
+  //   &:hover {
+  //     color: white;
+  //   }
+  // }
 
   .navbar {
   /*background-color: #33352c;*/
@@ -35,14 +29,14 @@ navbar {
 
   .nav > li > a {
     cursor: pointer;
-    &.active {
-      color: #f30046;
+    &:active {
+      color: #85db18;
     }
     &:hover {
       transition: color 0.2s;
     }
     &:focus {
-      color: #f30046;
+      color: #85db18;
       background: transparent;
     }
   }
@@ -59,7 +53,7 @@ navbar {
       color: white;
     }
     a {
-      color: #f30046;
+      color: #85db18;
       cursor: pointer;
     }
   }

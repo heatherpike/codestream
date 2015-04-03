@@ -6,7 +6,7 @@ app.factory('FileTree', function($http) {
       });
     },
     getFile: function getFile(path, cb) {
-      return $http.get('/api/filetree/file?path='+path).then(cb);
+      return $http.get('/api/filetree/file?path=' + path).then(cb);
     }
   }
 });

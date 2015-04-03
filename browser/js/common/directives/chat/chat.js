@@ -10,10 +10,16 @@ app.directive('chat', function() {
 app.controller('ChatCtrl', function($scope, socket, Chat, $stateParams) {
 
   $scope.chatInput = '';
+  $scope.messages = [];
+  $scope.getComments = function() {
+    if ($stateParams.lectureId.length > 0) {
+      Chat.get($stateParams.lectureId).then(function(messages) {
+        $scope.messages = messages;
+      });
+    }
+  }
 
-  Chat.get($stateParams.lectureId).then(function(repo) {
-    $scope.messages = repo.messages;
-  });
+  $scope.getComments();
 
   $scope.submitChat = function(message, who) {
 

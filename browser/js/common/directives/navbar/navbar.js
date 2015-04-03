@@ -11,9 +11,6 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
       scope.title = '<codestream/>',
 
         scope.items = [{
-          label: 'Home',
-          state: 'index'
-        }, {
           label: 'About',
           state: 'about'
         }, {
