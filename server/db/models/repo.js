@@ -27,7 +27,7 @@ schema.method('createRemote', function (name, username, password) {
 		name: name
 	}, function (err, repoInfo) {
 		if (err) deferred.reject(err);
-		deferred.resolve(repoInfo);
+		else deferred.resolve(repoInfo);
 	})
 	return deferred.promise;
 });
