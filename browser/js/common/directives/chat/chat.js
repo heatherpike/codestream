@@ -28,7 +28,15 @@ app.controller('ChatCtrl', function($scope, socket, Chat) {
 
   $scope.chatInput = '';
 
-  $scope.submitChat = function(message) {
+  $scope.submitChat = function(message, who) {
+
+    if (who === true) {
+
+    socket.emit('send message', 'Instructor :' + message);
+    $scope.chatInput = '';
+
+    } else 
+
     //will need to call Chat.add from the factory to add this message to the messages array once we set up Chat message array in the model
     // Chat.add(message).then(function(data) {
     socket.emit('send message', message);
