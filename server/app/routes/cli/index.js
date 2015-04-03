@@ -124,7 +124,7 @@ router.post('/repos/create', function (req, res, next) {
       })
     })
     .catch(function (err) {
-      res.status(500).send("Server Error", err);
+      res.status(500).send(err);
     })
     .done();
 });
