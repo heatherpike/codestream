@@ -81,7 +81,10 @@ module.exports = function(app) {
         UserModel.create(req.body, function(err, user) {
             console.log('getting here? request body', req.body);
             if (err) return next(err);
-            res.send(user);
+            res.send({
+                id: user._id,
+                user: user.username
+            });
         });
     });
 

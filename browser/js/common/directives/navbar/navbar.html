@@ -21,7 +21,7 @@
         </ul>
         <button style="float:right;margin-top:8px;" ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
         <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
+            <span>Welcome, {{ user.username }}!</span>
             <a ng-click="logout()">Logout</a>
         </div>
     </div><!-- /.navbar-collapse -->

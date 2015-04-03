@@ -116,6 +116,7 @@
 
         function onSuccessfulLogin(response) {
             var data = response.data;
+            console.log("onSL", response);
             Session.create(data.id, data.user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return data.user;
