@@ -119,23 +119,10 @@ router.post('/repos/create', function (req, res, next) {
 
   });
   newRepo.createRemote(req.body.repository, req.body.username, req.body.password)
-    // .then(function (repoInfo) {
-    //   return newRepo.clone(repoInfo, newRepo._id, req.body.username)
-    // })
-    // .then(function (repoInfo) {
-    //   return newRepo.addHook(repoInfo, req.body.username, req.body.password)
-    // })
     .then(function (repoInfo) {
       newRepo.save(function (err) {
         if (err) next('Save Error', err);
         res.status(200).send({repoId: newRepo._id});  
-        //create a dummy file and push to remote. Allows local to sync with remote
-        // var repoPath = rootPath + '/repos/' + newRepo._id;
-        // var filePath = repoPath + '/codestream.txt'
-        // fs.writeFileSync(filePath, "Auto created by Codestream");
-        // newRepo.initialCommit(filePath, repoPath)
-          //.then(function () {
-          //})
       })
     })
     .catch(function (err) {

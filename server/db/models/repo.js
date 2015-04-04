@@ -27,7 +27,7 @@ schema.method('createRemote', function (name, username, password) {
 		name: name
 	}, function (err, repoInfo) {
 		if (err) deferred.reject(err);
-		deferred.resolve(repoInfo);
+		else deferred.resolve(repoInfo);
 	})
 	return deferred.promise;
 });
@@ -57,25 +57,10 @@ schema.method('addHook', function (name, username, password) {
 	return deferred.promise;
 });
 
-// schema.method('initialCommit', function (file, repo) {
-// 	var deferred = Q.defer();
-// 	var gitRepo = git(repo);
-// 	gitRepo.add(file, function (err) {
-// 		if (err) deferred.reject(err);
-// 		gitRepo.commit("auto committed by Codestream", function (err) {
-// 			if (err) deferred.reject(err);
-// 			gitRepo.remote_push('origin', 'master', function (err) {
-// 				if (err) deferred.reject(err);
-// 				deferred.resolve();
-// 			});
-// 		});
-// 	});
-// 	return deferred.promise;
-// })
-
 schema.method('clone', function (name, repoId, username) {
 	var deferred = Q.defer();
-	git.clone('git@github.com:'+username+'/'+name+'.git', 
+
+	git.clone('http://github.com/'+username+'/'+name+'.git', 
   './repos/'+repoId, function(err, _repo) {
 	    if(err) deferred.reject(err);
 	    deferred.resolve(name);  
