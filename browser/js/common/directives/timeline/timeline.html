@@ -4,7 +4,7 @@
       <ol class="ol">
         <li class="entry" ng-repeat="commit in commits"><a href="http://github.com" target="_blank"></a>
           <span class="details">
-            <a href="{{githubUrl}}{{commit.id}}" target="_blank">{{commit.date | date:'MM/dd/yyyy @ h:mma'}}</a>
+            <a href="{{githubWebUrl}}{{commit.id}}" target="_blank">{{commit.date | date:'MM/dd/yyyy @ h:mma'}}</a>
           </span>
         </li>
       </ol>

@@ -11,7 +11,7 @@ var github = new GitHubApi({
 var schema = new mongoose.Schema({
   name: String,
   githubUrl: {type: String, unique: true},
-  userId: mongoose.Schema.Types.ObjectId,
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   chatComments: [String]
 });
 
