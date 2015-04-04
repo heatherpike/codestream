@@ -15,7 +15,6 @@ var rootPath = path.resolve(__dirname + "/../../../../");
 var github = new GitHubApi({
   version: '3.0.0'
 });
-console.log(rootPath);
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -46,13 +45,11 @@ router.post('/repos/:repoId/push', function (req, res, next) {
   var repoId = req.params.repoId;
   var repoPath = rootPath + '/repos/' + repoId;
   var repo = git(repoPath);
-  //repo.sync('origin', 'master', function (err) {e
     exec('git pull origin master', {cwd: repoPath}, function (err, stdout, stderr) {
       if (err) next(err);
       io.to(repoId).emit('repo updated', repoId);
       res.status(200).send();      
     })
-  //});
 })
 
 // API for CLIve
