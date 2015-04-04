@@ -9,6 +9,7 @@ var Repo = mongoose.model('Repo');
 var nodeGit = require('nodegit');
 var fs = require('fs');
 var path = require('path');
+var exec = require('child_process').exec;
 
 var rootPath = path.resolve(__dirname + "/../../../../");
 var github = new GitHubApi({
