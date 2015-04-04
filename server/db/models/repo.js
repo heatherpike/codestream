@@ -46,7 +46,7 @@ schema.method('addHook', function (name, username, password) {
 		repo: name,
 		name: 'web',
 		config: {
-			url: 'http://593d2949.ngrok.com/api/cli/repos/' + this._id + '/push',
+			url: 'http://codestream.co/api/cli/repos/' + this._id + '/push',
 			content_type: 'application/json',
 			secret: 'codestream is awesome'
 		}
