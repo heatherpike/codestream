@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var GitHubApi = require('github');
 var git = require('gift');
 var Q = require('q');
+var config = require('../../../config.js');
 
 var github = new GitHubApi({
 	version: '3.0.0'
@@ -46,7 +47,7 @@ schema.method('addHook', function (name, username, password) {
 		repo: name,
 		name: 'web',
 		config: {
-			url: 'http://593d2949.ngrok.com/api/cli/repos/' + this._id + '/push',
+			url: config.ngrok_url + '/api/cli/repos/' + this._id + '/push',
 			content_type: 'application/json',
 			secret: 'codestream is awesome'
 		}
