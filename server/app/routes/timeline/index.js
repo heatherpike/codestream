@@ -4,9 +4,13 @@ var timeline = require('./timeline');
 var mongoose = require('mongoose');
 
 router.get('/:dirname', function (req, res, next) {
-	mongoose.model('Repo').findOne({_id: dirname}, function(err, repo) {
+	console.log("timeline req", req.params);
+	mongoose.model('Repo').findOne({_id: req.params.dirname}, function(err, repo) {
+		console.log("repo", repo)
 		timeline(req.params.dirname, function(commits) {
-    	res.status(200).send({githubUrl: repo.githubUrl, commits: commits});
+		console.log("commits", commits);
+		console.log("latest", commits[0].id);
+    	res.status(200).send({user: repo.userId, repoName = repo.name, commits: commits});
 	})
   });
 })

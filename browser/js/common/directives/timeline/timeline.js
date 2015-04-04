@@ -11,7 +11,7 @@ app.controller('TimelineCtrl', function($scope, socket, Timeline) {
   
 	Timeline.get($scope.room, function(repo) {
     	$scope.commits = Timeline.sortByDate(repo.commits);
-      $scope.githubUrl = repo.githubUrl;
+      $scope.githubWebUrl = "https://github.com/"+repo.user+"/"+repo.repoName+"/tree/"
   	});
 
 	socket.on('repo updated', function (repoId) {
