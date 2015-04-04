@@ -27,7 +27,7 @@ schema.method('createRemote', function (name, username, password) {
 		name: name
 	}, function (err, repoInfo) {
 		if (err) deferred.reject(err);
-		deferred.resolve(repoInfo);
+		else deferred.resolve(repoInfo);
 	})
 	return deferred.promise;
 });
@@ -75,7 +75,7 @@ schema.method('initialCommit', function (file, repo) {
 schema.method('clone', function (repoInfo, repoId, username) {
 	var deferred = Q.defer();
 
-	git.clone('git@github.com:'+username+'/'+repoInfo.name+'.git', 
+	git.clone('http://github.com/'+username+'/'+repoInfo.name+'.git', 
   './repos/'+repoId, function(err, _repo) {
 	    if(err) deferred.reject(err);
 	    deferred.resolve(repoInfo);  
