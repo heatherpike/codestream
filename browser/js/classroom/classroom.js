@@ -16,16 +16,10 @@ app.controller('ClassroomCtrl', function($scope, socket, FileTree, $stateParams)
 
   socket.on('repo updated', function (repoId) {
     FileTree.directory(repoId)
-    .then(function(files) {
-      var arr = [];
-      arr.push(files);
-      $scope.showSelected = function(sel) {
-        $scope.selectedNode = sel;
-      };
-      $scope.files = files;
-    });
-
-  });
+      .then(function(files) {
+        showFiles(files);
+      });
+  })
 
   $scope.enter();
   // Scope variable init
@@ -54,16 +48,22 @@ app.controller('ClassroomCtrl', function($scope, socket, FileTree, $stateParams)
     $scope.displayMode();
   };
 
-
-  // Get the filetree to display in sidenav
-  FileTree.directory($stateParams.lectureId).then(function(files) {
-
-    var arr = [];
-    arr.push(files);
+  var showFiles = function (fileArr) {
+    var displayFiles = [];
+    fileArr.children.forEach(function (file) {
+      var firstChar = file.name.slice(0,1);
+      if (firstChar !== '.') {
+        displayFiles.push(file);
+      }
+    })
     $scope.showSelected = function(sel) {
       $scope.selectedNode = sel;
     };
-    $scope.files = files;
+    $scope.files = displayFiles;
+  }
+  // Get the filetree to display in sidenav
+  FileTree.directory($stateParams.lectureId).then(function(files) {
+    showFiles(files);
   });
 
   // ng-click function to get file clicked on in sidenav
@@ -72,7 +72,6 @@ app.controller('ClassroomCtrl', function($scope, socket, FileTree, $stateParams)
     if (node.type == 'file') {
       FileTree.getFile(node.path, function(response) {
         $scope.fsFile = response.data.file;
-        console.log('file', response);
         $scope.displayMode();
         // attempt to reset editor to go to line X (users current line prior
         // to update)
@@ -86,7 +85,6 @@ app.controller('ClassroomCtrl', function($scope, socket, FileTree, $stateParams)
 
   socket.on('file updated', function(data) {
 
-    console.log("file updated!", data)
     $scope.liveFile = data.page;
     $scope.liveFileName = data.file;
     $scope.lineNum = data.line[0];
