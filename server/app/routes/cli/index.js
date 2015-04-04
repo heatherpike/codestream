@@ -47,7 +47,7 @@ router.post('/repos/:repoId/push', function (req, res, next) {
   repo.sync('origin', 'master', function (err) {
     if (err) next(err);
     io.to(repoId).emit('repo updated', repoId);
-    res.sendStatus(200);
+    res.status(200).send();
   });
 })
 
@@ -86,6 +86,7 @@ router.get("/repos/user/:userId", function (req, res, next) {
   });
 });
 
+
 router.get("/repos/:repoName", function (req, res, next) {
   Repo.findOne({name: req.params.repoName}, function (err, repo) {
     if (err) next(err);
@@ -93,6 +94,21 @@ router.get("/repos/:repoName", function (req, res, next) {
   });
 });
 
+router.post('/repos/clone', function (req, res, next) {
+  Repo.findOne({_id: req.body.id}, function (err, repo) {
+    repo.clone(repo.name, repo._id, req.body.username)
+      .then(function (name) {
+        return repo.addHook(name, req.body.username, req.body.password)
+      })
+      .then(function () {
+        res.status(200).send(repo._id)
+      })
+      .catch(function (err) {
+        res.status(500).send('Server Error', err)
+      })
+      .done();
+  })
+})
 // POST /repos/create Creates a new repo in database, uses POST request data to
 //      clone the repo locally and set the app to create a classroom session
 //      for it, etc.
@@ -102,31 +118,19 @@ router.post('/repos/create', function (req, res, next) {
                           userId: req.user._id
 
   });
-
   newRepo.createRemote(req.body.repository, req.body.username, req.body.password)
-    .then(function (repoInfo) {
-      return newRepo.clone(repoInfo, newRepo._id, req.body.username)
-    })
-    .then(function (repoInfo) {
-      return newRepo.addHook(repoInfo, req.body.username, req.body.password)
-    })
     .then(function (repoInfo) {
       newRepo.save(function (err) {
         if (err) next('Save Error', err);
-        //create a dummy file and push to remote. Allows local to sync with remote
-        var repoPath = rootPath + '/repos/' + newRepo._id;
-        var filePath = repoPath + '/codestream.txt'
-        fs.writeFileSync(filePath, "Auto created by Codestream");
-        newRepo.initialCommit(filePath, repoPath)
-          .then(function () {
-            res.status(200).send({url: repoInfo.ssh_url, repoId: newRepo._id});  
-          })
+        res.status(200).send({repoId: newRepo._id});  
       })
     })
     .catch(function (err) {
-      res.sendStatus(500).send("Server Error", err);
+      res.status(500).send("Server Error", err);
     })
     .done();
 });
+
+  
 
 module.exports = router;

@@ -28,12 +28,12 @@ schema.method('createRemote', function (name, username, password) {
 		name: name
 	}, function (err, repoInfo) {
 		if (err) deferred.reject(err);
-		deferred.resolve(repoInfo);
+		else deferred.resolve(repoInfo);
 	})
 	return deferred.promise;
 });
 
-schema.method('addHook', function (repoInfo, username, password) {
+schema.method('addHook', function (name, username, password) {
 	var deferred = Q.defer();
 
 	github.authenticate({
@@ -41,45 +41,30 @@ schema.method('addHook', function (repoInfo, username, password) {
 		username: username,
 		password: password
 	});
+
 	github.repos.createHook({
 		user: username,
-		repo: repoInfo.name,
+		repo: name,
 		name: 'web',
 		config: {
-			url: 'http://codestream.co/api/cli/repos/' + this._id + '/push',
+			url: 'http://593d2949.ngrok.com/api/cli/repos/' + this._id + '/push',
 			content_type: 'application/json',
 			secret: 'codestream is awesome'
 		}
 	}, function (err, hookInfo) {
 		if (err) deferred.reject(err);
-		deferred.resolve(repoInfo);
+		deferred.resolve();
 	})
 	return deferred.promise;
 });
 
-schema.method('initialCommit', function (file, repo) {
-	var deferred = Q.defer();
-	var gitRepo = git(repo);
-	gitRepo.add(file, function (err) {
-		if (err) deferred.reject(err);
-		gitRepo.commit("auto committed by Codestream", function (err) {
-			if (err) deferred.reject(err);
-			gitRepo.remote_push('origin', 'master', function (err) {
-				if (err) deferred.reject(err);
-				deferred.resolve();
-			});
-		});
-	});
-	return deferred.promise;
-})
-
-schema.method('clone', function (repoInfo, repoId, username) {
+schema.method('clone', function (name, repoId, username) {
 	var deferred = Q.defer();
 
-	git.clone('git@github.com:'+username+'/'+repoInfo.name+'.git', 
+	git.clone('http://github.com/'+username+'/'+name+'.git', 
   './repos/'+repoId, function(err, _repo) {
 	    if(err) deferred.reject(err);
-	    deferred.resolve(repoInfo);  
+	    deferred.resolve(name);  
 	});
 	return deferred.promise;
 });
