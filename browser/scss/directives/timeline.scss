@@ -124,19 +124,20 @@
 
 /* ---- Hover effects ---- */
 
-.entry:focus {
+.entry:hover {
   cursor: pointer;
   color: #000;
 }
-.entry:focus::before {
+.entry:hover::before {
   top: 3px;
   left: -29px;
   width: 14px;
   height: 14px;
+  color: #777;
   border-width: 5px;
-  border-color: #777;
+  // border-color: #777;
 }
-.entry:focus .details {
+.entry:hover .details {
   display: block;
   width: 150px;
   color: #444;

@@ -1,12 +1,32 @@
-<!-- Timeline -->
+<!-- Timeline 
 <div class="bar">
     <div class="timeline">
       <ol class="ol">
-        <li class="entry" ng-repeat="commit in commits"><a href="{{githubWebUrl}}{{commit.id}}" target="_blank">link</a>
-          <span class="details">
-            <a href="{{githubWebUrl}}{{commit.id}}" target="_blank">{{commit.date | date:'MM/dd/yyyy @ h:mma'}}</a>
-          </span>
+        <li class="entry" ng-repeat="commit in commits">
+          <a href="{{githubWebUrl}}{{commit.id}}" target="_blank">
+          	<span class="details">
+            	{{commit.date | date:'MM/dd/yyyy @ h:mma'}}
+          	</span>
+          </a>
         </li>
+      </ol>
+    </div>
+</div>
+ end Timeline -->
+
+<!-- Timeline -->
+<div class="bar">
+    <div class="timeline">
+      <ol class="ol" >
+      <a href="{{githubWebUrl}}{{commit.id}}" target="_blank" ng-repeat="commit in commits">
+        <li class="entry" >
+          
+          	<span class="details">
+            	{{commit.date | date:'MM/dd/yyyy @ h:mma'}}
+          	</span>
+          
+        </li>
+        </a>
       </ol>
     </div>
 </div>
