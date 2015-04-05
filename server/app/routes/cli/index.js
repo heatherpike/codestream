@@ -44,7 +44,6 @@ router.post('/repos/:repoId/push', function (req, res, next) {
   var io = require('../../../io')();
   var repoId = req.params.repoId;
   var repoPath = rootPath + '/repos/' + repoId;
-  var repo = git(repoPath);
     exec('git pull origin master', {cwd: repoPath}, function (err, stdout, stderr) {
       if (err) next(err);
       io.to(repoId).emit('repo updated', repoId);
