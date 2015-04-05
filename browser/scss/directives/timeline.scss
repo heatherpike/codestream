@@ -106,7 +106,7 @@
   border-radius: 3px;
   transform: rotate(45deg);
   font: 12px arial;
-  background: #fff;
+  background: #777;
 }
 .timeline .details::before {
   content: "";
@@ -119,21 +119,23 @@
   border: 10px solid transparent;
   border-bottom-color: #fff;
   border-top: 0;
+  background: #777;
 }
 
 /* ---- Hover effects ---- */
 
 .entry:hover {
   cursor: pointer;
-  color: #777;
+  color: #000;
 }
 .entry:hover::before {
   top: 3px;
   left: -29px;
   width: 14px;
   height: 14px;
+  color: #777;
   border-width: 5px;
-  border-color: #777;
+  // border-color: #777;
 }
 .entry:hover .details {
   display: block;

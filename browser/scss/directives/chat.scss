@@ -1,6 +1,6 @@
 .instructchat {
   width: 80%;
-  margin:0 10px;
+  margin:0 10%;
   padding:0px;
   height: 500px;
   background-color: #646464;
@@ -23,6 +23,7 @@
   float: left;
   border-radius: 5px;
   padding: 15px;
+  overflow: hidden;
 }
 .header {
   input {
@@ -37,7 +38,12 @@
   top:55px;
   left:0px;
   right: 0px;
-  overflow: scroll; 
+  overflow: hidden; 
+  width: 100%;
+}
+
+.scrollContainer:hover {
+  overflow: auto;
 }
 
 .innerScroll {

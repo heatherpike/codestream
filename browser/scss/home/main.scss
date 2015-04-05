@@ -41,7 +41,6 @@ a {
   vertical-align: center;
   }
 
-
 .main {
   @include clearfix;
   margin: 0 14px;
@@ -55,12 +54,16 @@ a {
   height: 500px;
   width: 250px;
   color: #8B8B8B;
-  overflow: scroll;
+  overflow: hidden;
   background-color: #646464;
   float: left;
   button {
     margin-bottom: 10px;
   }
+}
+
+.directory:hover {
+  overflow: auto;
 }
 
 .ace_editor {
@@ -69,6 +72,11 @@ a {
   height: 500px;
   width: 58%;
   float: left;
+  overflow: hidden;
+}
+
+.ace_editor:hover {
+  overflow: auto;
 }
 
 .footer {

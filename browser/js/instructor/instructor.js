@@ -9,42 +9,41 @@ app.config(function($stateProvider) {
   });
 });
 
-app.config(function($stateProvider){
+app.config(function($stateProvider) {
 
-	$stateProvider.state('/instructor', {
+  $stateProvider.state('/instructor', {
 
-		url: '/instructor', 
-		templateUrl: 'js/instructor/instructor.html', 
-		controller: 'InstructorCtrl'
-		
-	});
+    url: '/instructor',
+    templateUrl: 'js/instructor/instructor.html',
+    controller: 'InstructorCtrl'
+
+  });
 });
 
-app.controller('InstructorCtrl', function($scope, $state, $stateParams, socket, Chat, Timeline, FileTree){
+app.controller('InstructorCtrl', function($scope, $state, $stateParams, socket, Chat, Timeline, FileTree) {
 
-	$scope.displayLive = true;
+  $scope.displayLive = true;
 
-	
-	$scope.enter = function () {
+  $scope.enter = function() {
     $scope.room = $stateParams.lectureId;
     socket.emit('join', $scope.room);
   }
 
-  socket.on('repo updated', function (repoId) {
+  socket.on('repo updated', function(repoId) {
     FileTree.directory(repoId)
-    .then(function(files) {
-      var arr = [];
-      arr.push(files);
-      $scope.showSelected = function(sel) {
-        $scope.selectedNode = sel;
-      };
-      $scope.files = files;
-    });
+      .then(function(files) {
+        var arr = [];
+        arr.push(files);
+        $scope.showSelected = function(sel) {
+          $scope.selectedNode = sel;
+        };
+        $scope.files = files;
+      });
 
   });
 
   $scope.enter();
-	// Get the timeline, assign to scope
+  // Get the timeline, assign to scope
   // Timeline.get(function(commits) {
   //   $scope.commits = Timeline.sortByDate(commits);
   // });
@@ -61,4 +60,3 @@ app.controller('InstructorCtrl', function($scope, $state, $stateParams, socket, 
 
 
 })
-
