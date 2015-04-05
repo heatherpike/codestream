@@ -6,4 +6,4 @@ Works in conjunction with the Codestream Command Line Interface and built-in Sub
 Built with MEAN stack (using FullStack Generator), Github API, Node-Git, Sublime Text API...
 
 ### Screenshot
-![CodeStream Screenshot](https://raw.githubusercontent.com/heatherpike/codestream/master/codestream_screenshot.jpg)
+![CodeStream Screenshot](https://raw.githubusercontent.com/heatherpike/codestream/master/codestream.jpg)
