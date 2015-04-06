@@ -44,11 +44,13 @@ router.post('/repos/:repoId/push', function (req, res, next) {
   var io = require('../../../io')();
   var repoId = req.params.repoId;
   var repoPath = rootPath + '/repos/' + repoId;
-    exec('git pull origin master', {cwd: repoPath}, function (err, stdout, stderr) {
-      if (err) next(err);
-      io.to(repoId).emit('repo updated', repoId);
-      res.status(200).send();      
-    })
+  exec('git pull origin master', {cwd: repoPath}, function (err, stdout, stderr) {
+    if (err) next(err);
+    console.log('stdout: ', stdout);
+    console.log('stderr: ', stderr);
+    io.to(repoId).emit('repo updated', repoId);
+    res.status(200).send();      
+  })
 })
 
 // API for CLIve
