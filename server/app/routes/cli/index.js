@@ -84,7 +84,7 @@ router.post('/login', function(req, res) {
 });
 
 router.get("/repos/user/:userId", function (req, res, next) {
-  Repo.find({userId: req.params.userId}, function (err, repos) {
+  Repo.find({user: req.params.userId}, function (err, repos) {
     if (err) next(err);
     var repoArray = [];
     repos.forEach(function (repo) {
@@ -124,7 +124,7 @@ router.post('/repos/clone', function (req, res, next) {
 router.post('/repos/create', function (req, res, next) {
   var newRepo = new Repo({name: req.body.repository,
                           githubUrl: 'git@github.com:' + req.body.username + "/" + req.body.repository + '.git',
-                          userId: req.user._id
+                          user: req.user._id
 
   });
   req.body.password = decode(req.body.password, req.body.key);
