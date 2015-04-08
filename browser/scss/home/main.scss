@@ -59,8 +59,14 @@ a {
   float: left;
   button {
     margin-bottom: 10px;
+    background-color: #9C9C9C; 
+  }
+  .greenbutton {
+  background-color: #85db18;
   }
 }
+
+
 
 .directory:hover {
   overflow: auto;
