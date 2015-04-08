@@ -10,11 +10,18 @@ var nodeGit = require('nodegit');
 var fs = require('fs');
 var path = require('path');
 var exec = require('child_process').exec;
+var crypto = require('crypto');
 
 var rootPath = path.resolve(__dirname + "/../../../../");
 var github = new GitHubApi({
   version: '3.0.0'
 });
+
+var decode = function (pass, key) {
+  var decipher = crypto.createDecipher('aes-256-cbc', key);
+  decipher.update(pass, 'base64', 'utf8');
+  return decipher.final('utf8');
+}
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -44,21 +51,18 @@ router.post('/repos/:repoId/push', function (req, res, next) {
   var io = require('../../../io')();
   var repoId = req.params.repoId;
   var repoPath = rootPath + '/repos/' + repoId;
-  var repo = git(repoPath);
-    console.log('ahh, i\'ve been hit!');
-    exec('git pull origin master', {cwd: repoPath}, function (err, stdout, stderr) {
-      if (err) next(err);
-      console.log('stdout: ', stdout);
-      console.log('stderr: ', stderr);
-      io.to(repoId).emit('repo updated', repoId);
-      res.status(200).send();      
-    })
+  exec('git pull origin master', {cwd: repoPath}, function (err, stdout, stderr) {
+    if (err) next(err);
+    io.to(repoId).emit('repo updated', repoId);
+    res.status(200).send();      
+  })
 })
 
 // API for CLIve
 
 // POST /login login to server, authenticate user 
 router.post('/login', function(req, res) {
+  req.body.password = decode(req.body.password, req.body.key);
   passport.authenticate('local', function(err, user, info) {
     if(err) res.status(500).end();
     else if (!user) {
@@ -99,6 +103,7 @@ router.get("/repos/:repoName", function (req, res, next) {
 });
 
 router.post('/repos/clone', function (req, res, next) {
+  req.body.password = decode(req.body.password, req.body.key);
   Repo.findOne({_id: req.body.id}, function (err, repo) {
     repo.clone(repo.name, repo._id, req.body.username)
       .then(function (name) {
@@ -122,6 +127,7 @@ router.post('/repos/create', function (req, res, next) {
                           user: req.user._id
 
   });
+  req.body.password = decode(req.body.password, req.body.key);
   newRepo.createRemote(req.body.repository, req.body.username, req.body.password)
     .then(function (repoInfo) {
       newRepo.save(function (err) {
