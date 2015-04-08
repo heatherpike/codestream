@@ -10,7 +10,7 @@ Built with MEAN stack (using FullStack Generator), Github API, Node-Git, and Sub
 ![CodeStream Screenshot](https://raw.githubusercontent.com/heatherpike/codestream/master/codestream.jpg)
 
 ### Workflow
-![CodeStream Workflow](https://github.com/heatherpike/codestream/blob/workflow-diagram/codestream-workflow.jpg)
+![CodeStream Workflow](https://raw.githubusercontent.com/heatherpike/codestream/master/codestream-workflow.jpg)
 
 ## Installation
 
