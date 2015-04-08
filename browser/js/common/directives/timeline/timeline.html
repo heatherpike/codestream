@@ -1,7 +1,7 @@
 <div class="bar">
     <div class="timeline">
       <ol class="ol" >
-      <a href="{{githubWebUrl}}{{commit.id}}" target="_blank" ng-repeat="commit in commits">
+      <a href="{{githubWebUrl}}{{commit.id}}" target="_blank" ng-repeat="commit in commits track by $index">
         <li class="entry" >
           
           	<span class="details">
