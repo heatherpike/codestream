@@ -24,7 +24,7 @@ app.controller('ChatCtrl', function($scope, socket, Chat, $stateParams) {
   $scope.submitChat = function(message, who) {
 
     if (who === true) {
-      var instructorMsg = 'Instructor :' + message;
+      var instructorMsg = 'Instructor: ' + message;
       Chat.add($scope.room, instructorMsg).then(function(data) {
         socket.emit('send message', instructorMsg);
         $scope.chatInput = '';

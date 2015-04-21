@@ -15,8 +15,10 @@ app.controller('TimelineCtrl', function($scope, socket, Timeline) {
   	});
 
 	socket.on('repo updated', function (repoId) {
-		Timeline.get($scope.room, function(commits) {
-	      $scope.commits.push(commits[commits.length-1]);
+		Timeline.get($scope.room, function(repo) {
+       //  console.log("new commit", commits[commits.length-1])
+	      // $scope.commits.push(commits[commits.length-1]);
+        $scope.commits = Timeline.sortByDate(repo.commits);
 	    });
 	});
 })
