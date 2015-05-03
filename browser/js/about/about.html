@@ -1,48 +1,24 @@
-<section id="about" class="about">
-    <p>
-        This website was created by a team of students at Fullstack Academy, who remember all too well the effort, focus and time required to learn how to become a Fullstack Engineer. We hope that this helps other students in their learning process.</p><br>
-        <p>We wish you well on your road to code! May the force be with you.</p>
-    </p>
-    <div class="aboutsign">
+<section class="about" ng-controller="AboutController">
 
-    <div style="float: left, width: 30%">
+  <video width="1200" height="675" src="/codestream-site-demo.mp4" autoplay controls>
+    Your browser does not support the <code>video</code> element.
+  </video>
 
-    <img src="https://media.licdn.com/mpr/mpr/shrink_200_200/p/3/005/048/23d/16906d1.jpg" ><br></br>
+  <p>
+    This project was created by a team of students at Fullstack Academy, who remember all too well the effort, focus and time required to learn how to become a Fullstack Engineer. We hope that this helps other students in their learning process.
+  </p>
+  <p>
+    We wish you well on your road to code! May the force be with you.
+  </p>
 
-    <a href="https://github.com/colin92"><b>Colin Meret</b></a><br></br>
+  <div class="aboutsign">
+
+    <div class="team-member" ng-repeat="member in members">
+      <img src="{{ member.img }}">
+      <div class="member-name">
+        <a href="{{ member.github }}"><b>{{ member.name }}</b></a>
+      </div>
     </div>
 
-    <div >
-
-    <img src="https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAIoAAAAJGRhMjRjN2M5LTgwNzAtNDJmOS1hODU3LTQxODQ3MThkMTNmOA.jpg" style="float:right, width:30%"><br></br>
-
-    <a href="https://github.com/Rmoore424"><b>Richard Moore</b></a><br></br>
-
-    </div>
-
-    <span>
-    <img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/7/005/043/0e3/1f90422.jpg"><br></br>
-
-    <a href="https://github.com/noelleantoinette"><b>Noelle Wandel</b></a><br></br>
-    </span>
-
-    <span>
-    <img src="https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAINAAAAJGE2ZjU1M2E3LWIxMTctNDZjYi1hMDg1LWIzZjgzNzU4Y2ViMA.jpg"><br></br>
-
-    <a href="https://github.com/heatherpike"><b>Heather Pike</b></a><br></br>
-
-    </span>
-
-    <span>
-
-    <img src="https://media.licdn.com/mpr/mpr/shrink_200_200/p/3/000/2c6/0c5/08fd121.jpg"><br></br>
-
-    <a href="https://github.com/crullian"><b>Chris Gullian</b></a><br></br>
-
-    </span>
-
-
-</div>
-
-    <img ng-repeat="image in images" ng-src="{{ image }}" />
+  </div>
 </section>

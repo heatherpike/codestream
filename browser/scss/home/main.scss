@@ -1,16 +1,28 @@
+$green: #681;
+
 
 body {
   font: 14px "Ubuntu", Helvetica, Arial, sans-serif;
-  color: #681;
+  color: $green;
   
   min-width: 700px;
   padding-top: 70px;
 }
 
 a {
-  color: #681;
- 
+  color: $green;
+  display: block;
+  &:hover {
+    text-decoration: none;
+  }
+}
 
+p {
+  margin: 0 10% 20px;
+}
+
+video {
+  margin-bottom: 50px;
 }
 
 .about{
@@ -19,9 +31,18 @@ a {
 }
 
 .aboutsign {
-  text-align: justify;
-   font-style: bold;
-   font-size: 25px;
+  text-align: center;
+  font-style: bold;
+  font-size: 25px;
+}
+
+.team-member {
+  display: inline-block;
+  margin: 60px 2%;
+}
+
+.member-name {
+  margin: 20px;
 }
 
 .homepage {
